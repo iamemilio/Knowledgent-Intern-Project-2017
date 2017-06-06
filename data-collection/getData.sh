@@ -1,9 +1,11 @@
 #!/bin/bash
 
 read -p "If Hadoop isnt running on your system, would you like to start running it? [y|n]: " hdp
-if ["$hdp"=="y"] || ["$hdp"=="Y"]; then
-    docker run --hostname=quickstart.cloudera --privileged=true -t -i -p 8888:8888 -p 8000:8000 -p 8080:8080  cloudera/quickstart /usr/bin/docker-quickstart
-fi
+case $hdp in  
+    y|Y) docker run --hostname=quickstart.cloudera --privileged=true -t -i -p 8888:8888 -p 8000:8000 -p 8080:8080  cloudera/quickstart /usr/bin/docker-quickstart ;;
+    n|N) ;; 
+    *) ;; 
+esac
 
 let containerID = docker ps | grep cloudera/quickstart | cut -d' ' -f1
 docker exec "$containerID" mkdir loadingZone
