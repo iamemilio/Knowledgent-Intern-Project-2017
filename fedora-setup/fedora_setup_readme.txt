@@ -3,5 +3,7 @@ Emilio
 
 1. Make sure you are either logged in as root, or run this script with sudo.
 2. Run the script with the following commands: 
-    chmod u+x fedora_setup.sh
-    ./fedora_setup.sh
+    as root:
+        bash fedora_setup.sh
+    with sudo:
+        sudo bash fedora_setup.sh

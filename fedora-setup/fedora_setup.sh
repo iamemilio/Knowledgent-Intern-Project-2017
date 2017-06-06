@@ -13,7 +13,7 @@ echo "Finished Installing Docker!"
 echo " "
 
 
-read -p "Do you want to download Hadoop now? It is very large and could take a few hours [Y|N]: " hadoop
+read -p "Do you want to download Hadoop? It is very large and could take a few hours [y|n]: " hadoop
 if ["$hadoop" = "y"] || ["$hadoop" = "Y"]; then
 	echo "Pulling Cloudera Hadoop Docker Image..."
 	docker pull cloudera/quickstart
