@@ -7,7 +7,7 @@ case $hdp in
     *) ;; 
 esac
 
-let containerID = docker ps | grep cloudera/quickstart | cut -d' ' -f1
+let containerID=docker ps | grep cloudera/quickstart | cut -d' ' -f1
 docker exec "$containerID" mkdir loadingZone
 docker exec "$containerID" wget http://bostonopendata-boston.opendata.arcgis.com/datasets/1d9509a8b2fd485d9ad471ba2fdb1f90_0.csv -O loadingZone/BuildBPS.csv
 docker exec "$containerID" wget http://bostonopendata-boston.opendata.arcgis.com/datasets/0046426a3e4340a6b025ad52b41be70a_1.csv -O loadingZone/Private.csv
