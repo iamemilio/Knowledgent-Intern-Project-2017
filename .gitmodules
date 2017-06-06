@@ -1,0 +1,3 @@
+[submodule "fedora-env-setup"]
+	path = fedora-env-setup
+	url = https://github.com/iamemilio/fedora-env-setup.git
