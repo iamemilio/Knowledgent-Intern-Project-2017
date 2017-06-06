@@ -7,10 +7,10 @@ case $hdp in
     *) ;; 
 esac
 
-let containerID = docker ps | grep cloudera/quickstart | cut -d' ' -f1
-docker exec "$containerID" mkdir loadingZone
-docker exec "$containerID" wget http://bostonopendata-boston.opendata.arcgis.com/datasets/1d9509a8b2fd485d9ad471ba2fdb1f90_0.csv -O loadingZone/BuildBPS.csv
-docker exec "$containerID" wget http://bostonopendata-boston.opendata.arcgis.com/datasets/0046426a3e4340a6b025ad52b41be70a_1.csv -O loadingZone/Private.csv
-docker exec "$containerID" wget http://bostonopendata-boston.opendata.arcgis.com/datasets/1d9509a8b2fd485d9ad471ba2fdb1f90_0.csv -O loadingZone/Public.csv
-docker exec "$containerID" wget https://data.cityofboston.gov/api/views/yv8c-t43q/rows.csv?accessType=DOWNLOAD -O loadingZone/PropVal.csv
+containerID = docker ps | grep cloudera/quickstart | cut -d' ' -f1
+docker exec $containerID mkdir loadingZone
+docker exec $containerID wget http://bostonopendata-boston.opendata.arcgis.com/datasets/1d9509a8b2fd485d9ad471ba2fdb1f90_0.csv -O loadingZone/BuildBPS.csv
+docker exec $containerID wget http://bostonopendata-boston.opendata.arcgis.com/datasets/0046426a3e4340a6b025ad52b41be70a_1.csv -O loadingZone/Private.csv
+docker exec $containerID wget http://bostonopendata-boston.opendata.arcgis.com/datasets/1d9509a8b2fd485d9ad471ba2fdb1f90_0.csv -O loadingZone/Public.csv
+docker exec $containerID wget https://data.cityofboston.gov/api/views/yv8c-t43q/rows.csv?accessType=DOWNLOAD -O loadingZone/PropVal.csv
 
