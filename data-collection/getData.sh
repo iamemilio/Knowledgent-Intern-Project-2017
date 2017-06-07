@@ -42,13 +42,4 @@ wget https://data.cityofboston.gov/api/views/yv8c-t43q/rows.csv?accessType=DOWNL
 
 #Boston Earnings Report
 wget https://data.cityofboston.gov/api/views/4swk-wcg8/rows.csv?accessType=DOWNLOAD -O raw-zone/Earnings.csv
-
-#Mass Graduation Rates by school
-wget http://profiles.doe.mass.edu/state_report/gradrates.aspx?&export_excel=yes&ctl00$ContentPlaceHolder1$cohortYear=2014&ctl00$ContentPlaceHolder1$reportType=SCHOOL&ctl00$ContentPlaceHolder1$rateType=4-Year:REG&ctl00$ContentPlaceHolder1$studentGroup=5 -O raw-zone/MassGradRates.csv
-
-#Mass SAT averages by school
-wget http://profiles.doe.mass.edu/state_report/sat_perf.aspx?ctl00$ContentPlaceHolder1$fycode=2015&export_excel=yes&ctl00$ContentPlaceHolder1$reportType=SCHOOL&ctl00$ContentPlaceHolder1$studentGroup=ALL -O raw-zone/MassAvgSAT.csv
-
-#Mass Demographics by school
-wget http://profiles.doe.mass.edu/state_report/enrollmentbyracegender.aspx?mode=school&year=2015&Continue=View+Report&export_excel=yes -O raw-zone/MassDemographics.csv
 EOF
