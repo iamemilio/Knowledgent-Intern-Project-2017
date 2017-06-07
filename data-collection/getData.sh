@@ -14,19 +14,10 @@ esac
 
 read -p "User: " user
 read -p "IP and Port: " IP
-
 path="$user@$IP"
+
+scp -r offline-datasets/ cloudera@path:~/raw-zone
 ssh "$path" << EOF
-mkdir raw-zone
-
-#Mass Educator Performance Evaluations by school
-scp offline-datasets/EducatorEvalPerf.csv "$path":/raw-zone/
-
-#Mass college attendance rate by school
-scp offline-datasets/Gradsattendingcollege.csv "$path":/raw-zone/
-
-#Mass graduation rate by school
-scp offline-datasets/graduates.csv "$path":/raw-zone/
 
 #Boston Public Schools
 wget http://bostonopendata-boston.opendata.arcgis.com/datasets/1d9509a8b2fd485d9ad471ba2fdb1f90_0.csv -O raw-zone/BuildBPS.csv
