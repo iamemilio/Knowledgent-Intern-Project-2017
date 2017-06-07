@@ -16,7 +16,7 @@ read -p "User: " user
 read -p "IP and Port: " IP
 path="$user@$IP"
 
-scp -r offline-datasets/ cloudera@path:~/raw-zone
+scp -r offline-datasets/ cloudera@"$path":~/raw-zone
 ssh "$path" << EOF
 
 #Boston Public Schools
