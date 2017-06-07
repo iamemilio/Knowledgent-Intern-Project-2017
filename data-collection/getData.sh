@@ -33,4 +33,8 @@ wget https://data.cityofboston.gov/api/views/yv8c-t43q/rows.csv?accessType=DOWNL
 
 #Boston Earnings Report
 wget https://data.cityofboston.gov/api/views/4swk-wcg8/rows.csv?accessType=DOWNLOAD -O raw-zone/Earnings.csv
+
+#move files into hdfs
+hadoop fs -mkdir data
+hadoop fs -put raw-zone/ data/
 EOF
