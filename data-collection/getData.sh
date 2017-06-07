@@ -16,7 +16,7 @@ read -p "User: " user
 read -p "IP and Port: " IP
 
 path="$user@$IP"
-ssh "$path"
+ssh "$path" << EOF
 mkdir raw-zone
 
 #Mass Educator Performance Evaluations by school
@@ -51,3 +51,4 @@ wget http://profiles.doe.mass.edu/state_report/sat_perf.aspx?ctl00$ContentPlaceH
 
 #Mass Demographics by school
 wget http://profiles.doe.mass.edu/state_report/enrollmentbyracegender.aspx?mode=school&year=2015&Continue=View+Report&export_excel=yes -O raw-zone/MassDemographics.csv
+EOF
