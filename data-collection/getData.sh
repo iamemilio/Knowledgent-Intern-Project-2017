@@ -2,7 +2,7 @@
 
 systemctl start docker
 
-read -p "If Hadoop isnt running on your system, would you like to start running it? [y|n]: " hdp
+read -p "Do you want to start up a Hadoop container? [y|n]: " hdp
 case $hdp in  
     y|Y) docker run --hostname=quickstart.cloudera --privileged=true -t -i -p 8888:8888 -p 8000:8000 -p 8080:8080  cloudera/quickstart /usr/bin/docker-quickstart ;;
     n|N) ;; 
