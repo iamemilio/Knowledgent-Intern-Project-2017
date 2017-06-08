@@ -28,6 +28,7 @@ ls
 pwd
 
 : '
+echo "hi"
 for file in $(ls ~/raw-zone)
 do
 let filename=$(cut -d$'.' -f1 $file)
