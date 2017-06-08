@@ -33,7 +33,7 @@ wget https://data.cityofboston.gov/api/views/4swk-wcg8/rows.csv?accessType=DOWNL
 #strip file headerss
 mkdir hive-raw-zone
 
-for file in $(ls raw-zone/)
+for file in $(ls ~/raw-zone/)
 do
 let filename=$(cut -d$'.' -f1 $file)
 cat $file | cut -d$'\n' f2- > hive-raw-zone/$filename-stripped.csv
