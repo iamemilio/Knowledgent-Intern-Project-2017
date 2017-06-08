@@ -15,5 +15,6 @@ esac
 read -p "User: " user
 read -p "IP and Port: " IP
 path="$user@$IP"
+ssh "$path" mkdir ~/raw-zone
 scp -r offline-datasets/ createHiveTables.sh "$path":~/raw-zone
 ssh "$path" sudo bash createHiveTables.sh
