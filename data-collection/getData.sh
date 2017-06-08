@@ -15,13 +15,13 @@ esac
 read -p "User: " user
 read -p "IP and Port: " IP
 path="$user@$IP"
-scp -r offline-datasets/ "$path":/
+scp -r offline-datasets/ "$path":~/raw-zone
 ssh "$path" << EOF
 #strip file headers
-mkdir hive-raw-zone
+mkdir ~/hive-raw-zone
 
 ls
-for file in $(ls /raw-zone)
+for file in $(ls ~/raw-zone)
 do
 let filename=$(cut -d$'.' -f1 $file)
 cat $file | cut -d$'\n' f2- > hive-raw-zone/$filename-stripped.csv
@@ -29,7 +29,7 @@ cat $file | cut -d$'\n' f2- > hive-raw-zone/$filename-stripped.csv
 #move files into hdfs
 hadoop fs -mkdir data
 hadoop fs -mkdir data/hive
-hadoop fs -put raw-zone/ data/hive
+hadoop fs -put hive-raw-zone/ data/hive
 
 #parse out the headers
 header=$($file | cut -d$'\n' -f1)
