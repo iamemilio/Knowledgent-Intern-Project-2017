@@ -15,10 +15,10 @@ esac
 read -p "User: " user
 read -p "IP and Port: " IP
 path="$user@$IP"
-ssh "$path" mkdir raw-zone
 scp -r offline-datasets/ "$path":~/raw-zone
 ssh "$path" << EOF
 #Boston Public Schools
+:'
 wget http://bostonopendata-boston.opendata.arcgis.com/datasets/1d9509a8b2fd485d9ad471ba2fdb1f90_0.csv -O raw-zone/BuildBPS.csv
 
 #Boston Private Schools Listings
@@ -30,7 +30,7 @@ wget http://bostonopendata-boston.opendata.arcgis.com/datasets/1d9509a8b2fd485d9
 #Boston Earnings Report
 wget https://data.cityofboston.gov/api/views/4swk-wcg8/rows.csv?accessType=DOWNLOAD -O raw-zone/Earnings.csv
 
-:'
+
 #strip file headerss
 mkdir hive-raw-zone
 rz="$(pwd)/raw-zone/"
