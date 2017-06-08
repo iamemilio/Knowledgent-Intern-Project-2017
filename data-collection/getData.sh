@@ -17,4 +17,4 @@ read -p "IP and Port: " IP
 path="$user@$IP"
 ssh "$path" mkdir raw-zone
 scp -r offline-datasets/ "$path":~/raw-zone
-ssh "$path" bash ~/raw-zone/offline-datasets/createHiveTables.sh
+ssh "$path" bash raw-zone/offline-datasets/createHiveTables.sh
