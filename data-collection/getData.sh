@@ -15,7 +15,7 @@ esac
 read -p "User: " user
 read -p "IP and Port: " IP
 path="$user@$IP"
-scp -r offline-datasets/ "$path":/raw-zone
+scp -r offline-datasets/ "$path":/
 ssh "$path" << EOF
 #strip file headers
 mkdir hive-raw-zone
