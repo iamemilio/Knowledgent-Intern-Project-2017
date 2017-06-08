@@ -18,7 +18,11 @@ path="$user@$IP"
 scp -r offline-datasets/ "$path":~/raw-zone
 ssh "$path" << EOF
 #strip file headers
+sudo su
 mkdir ~/hive-raw-zone
+
+hadoop fs -mkdir data
+hadoop fs -mkdir data/hive
 
 ls
 for file in $(ls ~/raw-zone)
@@ -27,9 +31,7 @@ let filename=$(cut -d$'.' -f1 $file)
 cat $file | cut -d$'\n' f2- > hive-raw-zone/$filename-stripped.csv
 
 #move files into hdfs
-hadoop fs -mkdir data
-hadoop fs -mkdir data/hive
-hadoop fs -put hive-raw-zone/ data/hive
+hadoop fs -put ~/hive-raw-zone/ data/hive/"$file"
 
 #parse out the headers
 header=$($file | cut -d$'\n' -f1)
