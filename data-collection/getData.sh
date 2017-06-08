@@ -15,10 +15,9 @@ esac
 read -p "User: " user
 read -p "IP and Port: " IP
 path="$user@$IP"
+ssh "$path" mkdir raw-zone
 scp -r offline-datasets/ "$path":~/raw-zone
-
 ssh "$path" << EOF
-
 #Boston Public Schools
 wget http://bostonopendata-boston.opendata.arcgis.com/datasets/1d9509a8b2fd485d9ad471ba2fdb1f90_0.csv -O raw-zone/BuildBPS.csv
 
@@ -33,7 +32,8 @@ wget https://data.cityofboston.gov/api/views/4swk-wcg8/rows.csv?accessType=DOWNL
 
 #strip file headerss
 mkdir hive-raw-zone
-for file in $(ls raw-zone/*.csv)
+
+for file in $(ls raw-zone/)
 do
 let filename=$(cut -d$'.' -f1 $file)
 cat $file | cut -d$'\n' f2- > hive-raw-zone/$filename-stripped.csv
