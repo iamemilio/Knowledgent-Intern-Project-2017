@@ -33,7 +33,7 @@ wget https://data.cityofboston.gov/api/views/4swk-wcg8/rows.csv?accessType=DOWNL
 #strip file headerss
 mkdir hive-raw-zone
 
-for file in $(ls ~/raw-zone/)
+for file in $(ls raw-zone/)
 do
 let filename=$(cut -d$'.' -f1 $file)
 cat $file | cut -d$'\n' f2- > hive-raw-zone/$filename-stripped.csv
@@ -47,7 +47,7 @@ hadoop fs -put raw-zone/ data/hive
 header=$($file | cut -d$'\n' -f1)
 IFS=',' read -r -a params <<< "$header"
 
-#create a hive table for this data set
+#create hive tables for data sets
 case $filename in
     "BuildBPS"*)
         CREATE TABLE IF NONE EXISTS $filename ( {params[0]} int, ${params[1]} int, ${params[2]} int, ${params[3]} int, ${params[4]} string, ${params[5]} string, ${params[6]} string, ${params[7]} int, ${params[8]} int, ${params[9]} int, ${params[10]} string, ${params[11]} string, ${params[12]} string, ${params[13]} string, ${params[14]} string) \
