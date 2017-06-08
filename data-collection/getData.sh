@@ -32,6 +32,8 @@ wget https://data.cityofboston.gov/api/views/4swk-wcg8/rows.csv?accessType=DOWNL
 
 #strip file headerss
 mkdir hive-raw-zone
+rz="$(pwd)/raw-zone/"
+echo $rz
 
 for file in $(ls raw-zone/)
 do
