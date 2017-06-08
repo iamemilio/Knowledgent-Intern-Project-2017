@@ -20,6 +20,7 @@ ssh "$path" << EOF
 #strip file headers
 mkdir ~/hive-raw-zone
 
+ls
 for file in $(ls raw-zone)
 do
 let filename=$(cut -d$'.' -f1 $file)
