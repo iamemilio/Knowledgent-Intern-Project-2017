@@ -25,6 +25,7 @@ hadoop fs -mkdir data
 hadoop fs -mkdir data/hive
 
 ls
+pwd
 
 : '
 for file in $(ls ~/raw-zone)
