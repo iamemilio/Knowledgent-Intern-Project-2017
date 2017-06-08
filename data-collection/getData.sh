@@ -18,7 +18,7 @@ path="$user@$IP"
 scp -r offline-datasets/ "$path":~/raw-zone
 ssh "$path" << EOF
 #strip file headers
-sudo su
+su
 mkdir ~/hive-raw-zone
 
 hadoop fs -mkdir data
