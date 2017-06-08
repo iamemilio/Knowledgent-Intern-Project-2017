@@ -25,6 +25,8 @@ hadoop fs -mkdir data
 hadoop fs -mkdir data/hive
 
 ls
+
+: '
 for file in $(ls ~/raw-zone)
 do
 let filename=$(cut -d$'.' -f1 $file)
@@ -104,4 +106,5 @@ case $filename in
 esac
 LOAD DATA INPATH '/data/hive/$file' INTO TABLE $filename
 done
+'
 EOF
