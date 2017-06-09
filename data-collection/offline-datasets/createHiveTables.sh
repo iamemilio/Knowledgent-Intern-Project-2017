@@ -7,7 +7,7 @@ filename=$(cut -d$'.' -f1 "$file")
 cat raw-zone/offline-datasets/$file | cut -d$'\n' f2- > hive-raw-zone/$filename-stripped.csv
 
 #parse out the headers
-header=$($file | cut -d$'\n' -f1)
+header=$(cat $file | cut -d$'\n' -f1)
 IFS=',' read -r -a params <<< "$header"
 
 #create hive tables for data sets
