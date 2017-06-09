@@ -13,7 +13,7 @@ IFS=',' read -r -a params <<< "$header"
 #create hive tables for data sets
 case $filename in
     "BuildBPS"*)
-        "CREATE TABLE IF NONE EXISTS \'$filename\' ( {params[0]} int, ${params[1]} int, ${params[2]} int, ${params[3]} int, ${params[4]} string, ${params[5]} string, ${params[6]} string, ${params[7]} int, ${params[8]} int, ${params[9]} int, ${params[10]} string, ${params[11]} string, ${params[12]} string, ${params[13]} string, ${params[14]} string) \
+        echo "CREATE TABLE IF NONE EXISTS \'$filename\' ( {params[0]} int, ${params[1]} int, ${params[2]} int, ${params[3]} int, ${params[4]} string, ${params[5]} string, ${params[6]} string, ${params[7]} int, ${params[8]} int, ${params[9]} int, ${params[10]} string, ${params[11]} string, ${params[12]} string, ${params[13]} string, ${params[14]} string) \
         COMMENT ‘Location and Administrative info for Boston Public Schools’ \
         ROW FORMAT DELIMITED \
         FIELDS TERMINATED BY ‘,’ \
@@ -22,7 +22,7 @@ case $filename in
         ;;   
     
     "Earnings"*)
-        "CREATE TABLE IF NONE EXISTS \'$filename\' ( ${params[0]} string, ${params[1]} string, ${params[2]} string, ${params[3]} string, ${params[4]} int, ${params[5]} int, ${params[6]} int, ${params[7]} int, ${params[8]} int, ${params[9]} int, ${params[10]} int, ${params[11]} int, ${params[12]} int) \
+        echo "CREATE TABLE IF NONE EXISTS \'$filename\' ( ${params[0]} string, ${params[1]} string, ${params[2]} string, ${params[3]} string, ${params[4]} int, ${params[5]} int, ${params[6]} int, ${params[7]} int, ${params[8]} int, ${params[9]} int, ${params[10]} int, ${params[11]} int, ${params[12]} int) \
         COMMENT ‘Salaries for Public Employees’ \
         ROW FORMAT DELIMITED \
         FIELDS TERMINATED BY ‘,’ \
@@ -31,7 +31,7 @@ case $filename in
         ;;    
 
     "EducatorEval"*)
-        "CREATE TABLE IF NONE EXISTS \'$filename\' (  ${params[0]} string, ${params[1]} int, ${params[2]} int, ${params[3]} int, ${params[4]} int, ${params[5]} int, ${params[6]} int, ${params[7]} int) \
+        echo "CREATE TABLE IF NONE EXISTS \'$filename\' (  ${params[0]} string, ${params[1]} int, ${params[2]} int, ${params[3]} int, ${params[4]} int, ${params[5]} int, ${params[6]} int, ${params[7]} int) \
         COMMENT ‘Location and Administrative info for Boston Public Schools’ \
         ROW FORMAT DELIMITED \
         FIELDS TERMINATED BY ‘,’ \
@@ -40,7 +40,7 @@ case $filename in
         ;;
 
     "Gradsattendingcollege"*)
-        "CREATE TABLE IF NONE EXISTS \'$filename\' ( ${params[0]} string, ${params[1]} int, ${params[2]} int, ${params[3]} int, ${params[4]} int, ${params[5]} int, ${params[6]} int, ${params[7]} int, ${params[8]} int, ${params[9]} int, ${params[10]} int, ${params[11]} int) \
+        echo "CREATE TABLE IF NONE EXISTS \'$filename\' ( ${params[0]} string, ${params[1]} int, ${params[2]} int, ${params[3]} int, ${params[4]} int, ${params[5]} int, ${params[6]} int, ${params[7]} int, ${params[8]} int, ${params[9]} int, ${params[10]} int, ${params[11]} int) \
         COMMENT ‘Location and Administrative info for Boston Public Schools’ \
         ROW FORMAT DELIMITED \
         FIELDS TERMINATED BY ‘,’ \
@@ -49,16 +49,16 @@ case $filename in
         ;;    
 
     "graduates"*)
-       "CREATE TABLE IF NONE EXISTS \'$filename\' ( {params[0]} string, ${params[1]} int, ${params[2]} int, ${params[3]} int, ${params[4]} int, ${params[5]} int, ${params[6]} int, ${params[7]} int, ${params[8]} int, ${params[9]} int, ${params[10]} int) \
+       echo "CREATE TABLE IF NONE EXISTS \'$filename\' ( {params[0]} string, ${params[1]} int, ${params[2]} int, ${params[3]} int, ${params[4]} int, ${params[5]} int, ${params[6]} int, ${params[7]} int, ${params[8]} int, ${params[9]} int, ${params[10]} int) \
         COMMENT ‘Location and Administrative info for Boston Public Schools’ \
         ROW FORMAT DELIMITED \
         FIELDS TERMINATED BY ‘,’ \
         LINES TERMINATED BY ‘\n’ \
-        STORED AS TEXTFILE;" >> hive-raw-zone/load-data.hqls
+        STORED AS TEXTFILE;" >> hive-raw-zone/load-data.hql
         ;;
 
     "Private"*)
-        "CREATE TABLE IF NONE EXISTS \'$filename\' ( {params[0]} int, ${params[1]} int, ${params[2]} int, ${params[3]} int, ${params[4]} string, ${params[5]} string, ${params[6]} string, ${params[7]} int, ${params[8]} int, ${params[9]} int, ${params[10]} string, ${params[11]} string, ${params[12]} string, ${params[13]} string, ${params[14]} string) \
+        echo "CREATE TABLE IF NONE EXISTS \'$filename\' ( {params[0]} int, ${params[1]} int, ${params[2]} int, ${params[3]} int, ${params[4]} string, ${params[5]} string, ${params[6]} string, ${params[7]} int, ${params[8]} int, ${params[9]} int, ${params[10]} string, ${params[11]} string, ${params[12]} string, ${params[13]} string, ${params[14]} string) \
         COMMENT ‘Location and Administrative info for Boston Public Schools’ \
         ROW FORMAT DELIMITED \
         FIELDS TERMINATED BY ‘,’ \
@@ -67,7 +67,7 @@ case $filename in
         ;;    
 
     "Public"*)
-        "CREATE TABLE IF NONE EXISTS \'$filename\' ( {params[0]} int, ${params[1]} int, ${params[2]} int, ${params[3]} int, ${params[4]} string, ${params[5]} string, ${params[6]} string, ${params[7]} int, ${params[8]} int, ${params[9]} int, ${params[10]} string, ${params[11]} string, ${params[12]} string, ${params[13]} string, ${params[14]} string) \
+        echo "CREATE TABLE IF NONE EXISTS \'$filename\' ( {params[0]} int, ${params[1]} int, ${params[2]} int, ${params[3]} int, ${params[4]} string, ${params[5]} string, ${params[6]} string, ${params[7]} int, ${params[8]} int, ${params[9]} int, ${params[10]} string, ${params[11]} string, ${params[12]} string, ${params[13]} string, ${params[14]} string) \
         COMMENT ‘Location and Administrative info for Boston Public Schools’ \
         ROW FORMAT DELIMITED \
         FIELDS TERMINATED BY ‘,’ \
