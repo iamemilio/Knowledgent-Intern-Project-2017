@@ -4,7 +4,7 @@ touch hive-raw-zone/load-data.hql
 for file in $(ls raw-zone/offline-datasets/)
 do
 filename=$(echo "$file" | cut -d$'.' -f1)
-cat raw-zone/offline-datasets/$file | cut -d$'\n' f2- > hive-raw-zone/$filename-stripped.csv
+cut -d$'\n' f2- "$(cat raw-zone/offline-datasets/$file)" > hive-raw-zone/$filename-stripped.csv
 
 #parse out the headers
 header=$(cat $file | cut -d$'\n' -f1)
