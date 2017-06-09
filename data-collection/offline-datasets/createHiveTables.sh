@@ -3,7 +3,7 @@ touch hive-raw-zone/load-data.hql
 
 for file in $(ls ~/raw-zone)
 do
-let filename=$(cut -d$'.' -f1 $file)
+let filename=$(cut -d$'.' -f1 "$file")
 cat $file | cut -d$'\n' f2- > hive-raw-zone/$filename-stripped.csv
 
 #parse out the headers
