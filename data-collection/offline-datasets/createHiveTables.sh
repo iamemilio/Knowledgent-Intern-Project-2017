@@ -14,6 +14,7 @@ hadoop fs -put ~/hive-raw-zone/ data/hive/"$file"
 header=$($file | cut -d$'\n' -f1)
 IFS=',' read -r -a params <<< "$header"
 
+hive
 #create hive tables for data sets
 case $filename in
     "BuildBPS"*)
@@ -80,4 +81,6 @@ case $filename in
         ;;    
 esac
 LOAD DATA INPATH '/data/hive/$file' INTO TABLE $filename
+exit;
+
 done
