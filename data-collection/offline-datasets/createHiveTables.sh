@@ -75,12 +75,12 @@ case $filename in
         STORED AS TEXTFILE;" >> hive-raw-zone/load-data.hql
         ;;    
 esac
-"LOAD DATA INPATH \'/data/hive/$file\' INTO TABLE $filename;" >> hive-raw-zone/load-data.hql
+echo "LOAD DATA INPATH \'/data/hive/$file\' INTO TABLE $filename;" >> hive-raw-zone/load-data.hql
 done
 
 #move files into hdfs
 hadoop fs -mkdir data
 hadoop fs -mkdir data/hive
-hadoop fs -put ~/hive-raw-zone/ data/hive/
+hadoop fs -put hive-raw-zone/ data/hive/
 
 #hive -f hive-raw-zone/load-data.hql
