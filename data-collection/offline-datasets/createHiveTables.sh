@@ -1,7 +1,7 @@
 mkdir hive-raw-zone
 touch hive-raw-zone/load-data.hql
 
-for file in $(ls raw-zone)
+for file in $(ls raw-zone/offline-datasets/)
 do
 filename="$(cut -d$'.' -f1 $file)"
 cat $file | cut -d$'\n' f2- > hive-raw-zone/$filename-stripped.csv
