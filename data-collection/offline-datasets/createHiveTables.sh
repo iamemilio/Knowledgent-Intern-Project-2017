@@ -83,4 +83,4 @@ hadoop fs -mkdir data
 hadoop fs -mkdir data/hive
 hadoop fs -put hive-raw-zone/ data/hive/
 
-#hive -f hive-raw-zone/load-data.hql
+hive -f hive-raw-zone/load-data.hql
