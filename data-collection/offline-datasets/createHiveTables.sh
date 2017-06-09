@@ -3,11 +3,11 @@ touch hive-raw-zone/load-data.hql
 
 for file in $(ls raw-zone/offline-datasets/)
 do
-filename=$(echo "$file" | cut -d$'.' -f1)
-cut -d$'\n' f2- "$(cat raw-zone/offline-datasets/$file)" > hive-raw-zone/$filename-stripped.csv
+filename=$(echo "$file" | cut -d$'.' -f 1) 
+tail -n +2 raw-zone/offline-datasets/$file > hive-raw-zone/$filename-stripped.csv
 
 #parse out the headers
-header=$(cat $file | cut -d$'\n' -f1)
+header=$(cut -d$'\n' -f 1 raw-zone/offline-datasets/$file)
 IFS=',' read -r -a params <<< "$header"
 
 #create hive tables for data sets
