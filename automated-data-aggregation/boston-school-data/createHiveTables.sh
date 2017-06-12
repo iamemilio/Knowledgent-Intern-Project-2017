@@ -1,3 +1,5 @@
+#!/bin/bash
+
 mkdir boston-school-data/hive-raw-zone
 touch boston-school-data/load-data.hql
 
