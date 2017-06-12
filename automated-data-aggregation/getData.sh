@@ -15,5 +15,5 @@ esac
 read -p "User: " user
 read -p "IP and Port: " IP
 path="$user@$IP"
-scp -r boston-school-data/offline-datasets/ "$path":~/
+scp -r boston-school-data/raw-zone/ "$path":~/
 ssh "$path" bash boston-school-data/createHiveTables.sh
