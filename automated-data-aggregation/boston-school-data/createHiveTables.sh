@@ -4,7 +4,7 @@ touch boston-school-data/hive-raw-zone/load-data.hql
 for file in $(ls boston-school-data/raw-zone)
 do
 filename=$(echo "$file" | cut -d$'.' -f 1) 
-tail -n +2 boston-school-data/raw-zone/offline-datasets/$file > hive-raw-zone/$filename-stripped.csv
+tail -n +2 boston-school-data/raw-zone/$file > boston-school-data/hive-raw-zone/$filename-stripped.csv
 
 #parse out the headers
 header=$(cut -d$'\n' -f 1 boston-school-data/raw-zone/$file)
