@@ -1,10 +1,10 @@
-mkdir hive-raw-zone
-touch hive-raw-zone/load-data.hql
+mkdir boston-school-data/hive-raw-zone
+touch boston-school-data/hive-raw-zone/load-data.hql
 
 for file in $(ls raw-zone/offline-datasets/)
 do
 filename=$(echo "$file" | cut -d$'.' -f 1) 
-tail -n +2 raw-zone/offline-datasets/$file > hive-raw-zone/$filename-stripped.csv
+tail -n +2 boston-school-data/raw-zone/offline-datasets/$file > hive-raw-zone/$filename-stripped.csv
 
 #parse out the headers
 header=$(cut -d$'\n' -f 1 raw-zone/offline-datasets/$file)
@@ -86,6 +86,6 @@ done
 #move files into hdfs
 hadoop fs -mkdir data
 hadoop fs -mkdir data/hive
-hadoop fs -put hive-raw-zone/ data/hive/
+hadoop fs -put boston-school-data/hive-raw-zone/ data/hive/
 
 #hive -f hive-raw-zone/load-data.hql
