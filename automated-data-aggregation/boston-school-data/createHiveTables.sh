@@ -1,13 +1,13 @@
 mkdir boston-school-data/hive-raw-zone
 touch boston-school-data/hive-raw-zone/load-data.hql
 
-for file in $(ls raw-zone/offline-datasets/)
+for file in $(ls boston-school-data/raw-zone)
 do
 filename=$(echo "$file" | cut -d$'.' -f 1) 
 tail -n +2 boston-school-data/raw-zone/offline-datasets/$file > hive-raw-zone/$filename-stripped.csv
 
 #parse out the headers
-header=$(cut -d$'\n' -f 1 raw-zone/offline-datasets/$file)
+header=$(cut -d$'\n' -f 1 boston-school-data/raw-zone/$file)
 IFS=',' read -r -a params <<< "$header"
 
 #create hive tables for data sets
