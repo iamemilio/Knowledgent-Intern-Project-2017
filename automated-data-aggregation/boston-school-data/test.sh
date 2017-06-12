@@ -11,4 +11,4 @@ cat <<EOF >> boston-school-data/load-data.hql
         FIELDS TERMINATED BY ‘,’ 
         LINES TERMINATED BY ‘\n’ 
         STORED AS TEXTFILE;
-        EOF
+EOF
