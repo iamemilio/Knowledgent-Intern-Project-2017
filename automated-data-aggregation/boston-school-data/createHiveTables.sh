@@ -1,5 +1,5 @@
 mkdir boston-school-data/hive-raw-zone
-touch boston-school-data/hive-raw-zone/load-data.hql
+touch boston-school-data/load-data.hql
 
 for file in $(ls boston-school-data/raw-zone)
 do
@@ -23,7 +23,7 @@ case $filename in
         ROW FORMAT DELIMITED \
         FIELDS TERMINATED BY ‘,’ \
         LINES TERMINATED BY ‘\n’ \
-        STORED AS TEXTFILE;" >> hive-raw-zone/load-data.hql
+        STORED AS TEXTFILE;" >> boston-school-data/load-data.hql
         ;;   
     
     "Employee_Earnings"*)
@@ -32,7 +32,7 @@ case $filename in
         ROW FORMAT DELIMITED \
         FIELDS TERMINATED BY ‘,’ \
         LINES TERMINATED BY ‘\n’ \
-        STORED AS TEXTFILE;" >> hive-raw-zone/load-data.hql
+        STORED AS TEXTFILE;" >> boston-school-data/load-data.hql
         ;;    
 
     "EducatorEval"*)
@@ -41,7 +41,7 @@ case $filename in
         ROW FORMAT DELIMITED \
         FIELDS TERMINATED BY ‘,’ \
         LINES TERMINATED BY ‘\n’ \
-        STORED AS TEXTFILE;" >> hive-raw-zone/load-data.hql
+        STORED AS TEXTFILE;" >> boston-school-data/load-data.hql
         ;;
 
     "Gradsattendingcollege"*)
@@ -50,7 +50,7 @@ case $filename in
         ROW FORMAT DELIMITED \
         FIELDS TERMINATED BY ‘,’ \
         LINES TERMINATED BY ‘\n’ \
-        STORED AS TEXTFILE;" >> hive-raw-zone/load-data.hql
+        STORED AS TEXTFILE;" >> boston-school-data/load-data.hql
         ;;    
 
     "graduates"*)
@@ -59,7 +59,7 @@ case $filename in
         ROW FORMAT DELIMITED \
         FIELDS TERMINATED BY ‘,’ \
         LINES TERMINATED BY ‘\n’ \
-        STORED AS TEXTFILE;" >> hive-raw-zone/load-data.hql
+        STORED AS TEXTFILE;" >> boston-school-data/load-data.hql
         ;;
 
     "Non_Public"*)
@@ -68,7 +68,7 @@ case $filename in
         ROW FORMAT DELIMITED \
         FIELDS TERMINATED BY ‘,’ \
         LINES TERMINATED BY ‘\n’ \
-        STORED AS TEXTFILE;" >> hive-raw-zone/load-data.hql
+        STORED AS TEXTFILE;" >> boston-school-data/load-data.hql
         ;;    
 
     "Public"*)
@@ -77,10 +77,10 @@ case $filename in
         ROW FORMAT DELIMITED \
         FIELDS TERMINATED BY ‘,’ \
         LINES TERMINATED BY ‘\n’ \
-        STORED AS TEXTFILE;" >> hive-raw-zone/load-data.hql
+        STORED AS TEXTFILE;" >> boston-school-data/load-data.hql
         ;;    
 esac
-echo "LOAD DATA INPATH "/data/hive/$filename-stripped.csv" INTO  TABLE $filename;" >> hive-raw-zone/load-data.hql
+echo "LOAD DATA INPATH "/data/hive/$filename-stripped.csv" INTO  TABLE $filename;" >> boston-school-data/load-data.hql
 done
 
 #move files into hdfs
@@ -88,4 +88,4 @@ hadoop fs -mkdir data
 hadoop fs -mkdir data/hive
 hadoop fs -put boston-school-data/hive-raw-zone/ data/hive/
 
-#hive -f hive-raw-zone/load-data.hql
+#hive -f boston-school-data/load-data.hql
