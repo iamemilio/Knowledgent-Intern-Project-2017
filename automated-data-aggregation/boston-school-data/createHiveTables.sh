@@ -18,6 +18,8 @@ for i in $(seq 1 ${#params[@]})
 do
 #remove leading and trailinig whitespace
 params[$i]=$(echo ${params[i]} | sed 's/^ *//g' | sed 's/ *$//g')
+#remove colons
+params[$i]=${params[$i]//':'/}
 #remove all slashes
 params[$i]=${params[$i]//'/'/}
 #replace spaces in column headers with underscores
