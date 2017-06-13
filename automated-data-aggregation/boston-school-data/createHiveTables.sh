@@ -101,4 +101,4 @@ hadoop fs -mkdir data
 hadoop fs -mkdir data/hive
 hadoop fs -put boston-school-data/hive-raw-zone/ data/hive/
 
-#hive -f boston-school-data/load-data.hql
+hive -f boston-school-data/load-data.hql
