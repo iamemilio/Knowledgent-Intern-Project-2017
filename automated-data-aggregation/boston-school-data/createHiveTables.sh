@@ -13,9 +13,11 @@ tail -n +2 boston-school-data/raw-zone/$file > boston-school-data/hive-raw-zone/
 header=$(cut -d$'\n' -f 1 boston-school-data/raw-zone/$file)
 IFS=',' read -r -a params <<< "$header"
 
-#modify headers to be more database friendly
+#modify headers to work with hive
 for i in $(seq 1 ${#params[@]})
 do
+#remove leading and trailinig whitespace
+params[$i]=$(echo ${params[i]} | sed 's/^ *//g' | sed 's/ *$//g')
 #remove all slashes
 params[$i]=${params[$i]//'/'/}
 #replace spaces in column headers with underscores
