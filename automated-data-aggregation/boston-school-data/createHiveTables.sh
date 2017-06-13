@@ -22,6 +22,11 @@ params[$i]=$(echo ${params[i]} | sed 's/^ *//g' | sed 's/ *$//g')
 params[$i]=${params[$i]//':'/}
 #remove all slashes
 params[$i]=${params[$i]//'/'/}
+#replace % and 3 with words
+params[$i]=${params[$i]//'#'/'num'}
+params[$i]=${params[$i]//'%'/'percent'}
+params[$i]=${params[$i]//'('/}
+params[$i]=${params[$i]//')'/}
 #replace spaces in column headers with underscores
 params[$i]=${params[$i]// /_}
 #make all column headers lower case
