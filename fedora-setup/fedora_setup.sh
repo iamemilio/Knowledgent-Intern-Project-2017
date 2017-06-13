@@ -12,8 +12,9 @@ systemctl start docker
 echo "Finished Installing Docker!"
 echo " "
 
+dnf install vitrualenv python3
 
-read -p "Do you want to download Hadoop? It is very large and could take a few hours [y|n]: " hadoop
+read -p "Do you want to download a docker image of Hadoop? It is very large and could take a few hours [y|n]: " hadoop
 if ["$hadoop" = "y"] || ["$hadoop" = "Y"]; then
 	echo "Pulling Cloudera Hadoop Docker Image..."
 	docker pull cloudera/quickstart
