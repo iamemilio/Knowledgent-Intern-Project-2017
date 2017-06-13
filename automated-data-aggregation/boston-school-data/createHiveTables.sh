@@ -15,9 +15,9 @@ IFS=',' read -r -a params <<< "$header"
 for i in $(seq 1 ${#params[@]})
 do 
 #replace spaces in column headers with underscores
-${params[$i]}=${${params[$i]}// /_}
+${params[$i]}=${params[$i]// /_}
 #make all column headers lower case
-${params[$i]}=${${params[$i]},,}
+${params[$i]}=${params[$i],,}
 done
 
 #create hive tables for data sets
