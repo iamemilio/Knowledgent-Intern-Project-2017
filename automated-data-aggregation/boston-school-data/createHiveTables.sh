@@ -2,7 +2,7 @@
 mkdir boston-school-data/hive-raw-zone
 touch boston-school-data/load-data.hql
 
-echo "CREATE DATABASE IF NOT EXISTS boston_data" >> boston-school-data/load-data.hql
+echo "CREATE DATABASE IF NOT EXISTS boston_data;" >> boston-school-data/load-data.hql
 
 for file in $(ls boston-school-data/raw-zone)
 do
