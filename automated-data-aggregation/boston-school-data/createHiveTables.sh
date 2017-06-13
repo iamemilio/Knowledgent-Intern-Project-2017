@@ -11,6 +11,15 @@ tail -n +2 boston-school-data/raw-zone/$file > boston-school-data/hive-raw-zone/
 header=$(cut -d$'\n' -f 1 boston-school-data/raw-zone/$file)
 IFS=',' read -r -a params <<< "$header"
 
+#modify headers to be more database friendly
+for i in $(seq 1 ${#params[@]})
+do 
+#replace spaces in column headers with underscores
+${params[$i]}=${${params[$i]}// /_}
+#make all column headers lower case
+${params[$i]}=${${params[$i]},,}
+done
+
 #create hive tables for data sets
 case $filename in
     "buildbps"*)
@@ -28,7 +37,7 @@ FIELDS TERMINATED BY ‘,’
 LINES TERMINATED BY ‘\n’ 
 STORED AS TEXTFILE; >> boston-school-data/load-data.hql
 _EOF
-        ;;   
+        ;;
     
     "Employee_Earnings"*)
         echo "CREATE TABLE IF NONE EXISTS '$filename' ( ${params[0]} string, ${params[1]} string, ${params[2]} string, ${params[3]} string, ${params[4]} numeric, ${params[5]} numeric, ${params[6]} numeric, ${params[7]} numeric, ${params[8]} numeric, ${params[9]} numeric, ${params[10]} numeric, ${params[11]} numeric, ${params[12]} numeric) \
