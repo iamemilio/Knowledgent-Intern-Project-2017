@@ -62,7 +62,7 @@ ${params[201]} string, ${params[202]} string, ${params[203]} string, ${params[20
         FIELDS TERMINATED BY ',' 
         LINES TERMINATED BY '\n' 
         STORED AS TEXTFILE
-        LOCATION '/hive/raw-zone/$filename';" >> boston-school-data/load-data.hql
+        LOCATION '/user/cloudera/hive/raw-zone/$filename';" >> boston-school-data/load-data.hql
         ;;
 
     "Employee_Earnings"*)

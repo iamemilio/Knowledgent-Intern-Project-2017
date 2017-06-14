@@ -16,4 +16,4 @@ read -p "User: " user
 read -p "IP and Port: " IP
 path="$user@$IP"
 scp -r boston-school-data "$path":~/
-ssh "$path" bash boston-school-data/createHiveTables.sh > log.txt
+ssh "$path" bash boston-school-data/createHiveTables.sh $user
