@@ -119,7 +119,7 @@ ${params[201]} string, ${params[202]} string, ${params[203]} string, ${params[20
         LOCATION '/hive/raw-zone/$filename';" >> boston-school-data/load-data.hql
         ;;    
 esac
-echo "LOAD DATA INPATH 'hdfs:data/hive/hive-raw-zone/$filename-stripped.csv' INTO  TABLE boston_data.$filename;" >> boston-school-data/load-data.hql
+echo "LOAD DATA INPATH 'hdfs:/data/hive/hive-raw-zone/$filename-stripped.csv' INTO TABLE boston_data.$filename;" >> boston-school-data/load-data.hql
 done
 
 #move files into hdfs
