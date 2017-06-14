@@ -14,7 +14,7 @@ header=$(cut -d$'\n' -f 1 boston-school-data/raw-zone/$file)
 IFS=',' read -r -a params <<< "$header"
 
 #modify headers to work with hive
-for i in $(seq 1 ${#params[@]})
+for i in $(seq 0 ${#params[@]})
 do
 echo "transforming: ${params[$i]}
 " >> log.txt
