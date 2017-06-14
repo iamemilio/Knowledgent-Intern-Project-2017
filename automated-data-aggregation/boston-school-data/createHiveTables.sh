@@ -61,7 +61,8 @@ ${params[201]} string, ${params[202]} string, ${params[203]} string, ${params[20
         ROW FORMAT DELIMITED 
         FIELDS TERMINATED BY ',' 
         LINES TERMINATED BY '\n' 
-        STORED AS TEXTFILE;" >> boston-school-data/load-data.hql
+        STORED AS TEXTFILE
+        location 'hive/raw-zone/';" >> boston-school-data/load-data.hql
         ;;
 
     "Employee_Earnings"*)
@@ -69,7 +70,8 @@ ${params[201]} string, ${params[202]} string, ${params[203]} string, ${params[20
         ROW FORMAT DELIMITED 
         FIELDS TERMINATED BY ',' 
         LINES TERMINATED BY '\n' 
-        STORED AS TEXTFILE;" >> boston-school-data/load-data.hql
+        STORED AS TEXTFILE
+        location 'hive/raw-zone/';" >> boston-school-data/load-data.hql
         ;;    
 
     "EducatorEval"*)
@@ -77,7 +79,8 @@ ${params[201]} string, ${params[202]} string, ${params[203]} string, ${params[20
         ROW FORMAT DELIMITED 
         FIELDS TERMINATED BY ',' 
         LINES TERMINATED BY '\n' 
-        STORED AS TEXTFILE;" >> boston-school-data/load-data.hql
+        STORED AS TEXTFILE
+        location 'hive/raw-zone/';" >> boston-school-data/load-data.hql
         ;;
 
     "Gradsattendingcollege"*)
@@ -85,7 +88,8 @@ ${params[201]} string, ${params[202]} string, ${params[203]} string, ${params[20
         ROW FORMAT DELIMITED 
         FIELDS TERMINATED BY ',' 
         LINES TERMINATED BY '\n' 
-        STORED AS TEXTFILE;" >> boston-school-data/load-data.hql
+        STORED AS TEXTFILE
+        location 'hive/raw-zone/';" >> boston-school-data/load-data.hql
         ;;    
 
     "graduates"*)
@@ -93,7 +97,8 @@ ${params[201]} string, ${params[202]} string, ${params[203]} string, ${params[20
         ROW FORMAT DELIMITED 
         FIELDS TERMINATED BY ',' 
         LINES TERMINATED BY '\n' 
-        STORED AS TEXTFILE;" >> boston-school-data/load-data.hql
+        STORED AS TEXTFILE
+        location 'hive/raw-zone/'" >> boston-school-data/load-data.hql
         ;;
 
     "Non_Public"*)
@@ -101,7 +106,8 @@ ${params[201]} string, ${params[202]} string, ${params[203]} string, ${params[20
         ROW FORMAT DELIMITED 
         FIELDS TERMINATED BY ','
         LINES TERMINATED BY '\n' 
-        STORED AS TEXTFILE;" >> boston-school-data/load-data.hql
+        STORED AS TEXTFILE
+        location 'hive/raw-zone/';" >> boston-school-data/load-data.hql
         ;;    
 
     "Public"*)
@@ -109,15 +115,18 @@ ${params[201]} string, ${params[202]} string, ${params[203]} string, ${params[20
         ROW FORMAT DELIMITED 
         FIELDS TERMINATED BY ',' 
         LINES TERMINATED BY '\n' 
-        STORED AS TEXTFILE;" >> boston-school-data/load-data.hql
+        STORED AS TEXTFILE
+        location 'hive/raw-zone/';" >> boston-school-data/load-data.hql
         ;;    
 esac
-echo "LOAD DATA INPATH 'data/hive/hive-raw-zone/$filename-stripped.csv' INTO  TABLE boston_data.$filename;" >> boston-school-data/load-data.hql
+echo "LOAD DATA INPATH 'data/hive/hive-raw-zone$filename-stripped.csv' INTO  TABLE boston_data.$filename;" >> boston-school-data/load-data.hql
 done
 
 #move files into hdfs
 hadoop fs -mkdir data
 hadoop fs -mkdir data/hive
 hadoop fs -put boston-school-data/hive-raw-zone/ data/hive/
+hadoop fs -mkdir hive
+hadoop fs -mkdir hive/raw-zone
 
 hive -f boston-school-data/load-data.hql
