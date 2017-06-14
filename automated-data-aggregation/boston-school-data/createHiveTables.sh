@@ -27,6 +27,8 @@ params[$i]=${params[$i]//'#'/'num'}
 params[$i]=${params[$i]//'%'/'percent'}
 params[$i]=${params[$i]//'('/}
 params[$i]=${params[$i]//')'/}
+#remove dashes
+params[$i]=${params[$i]//'-'/}
 #replace spaces in column headers with underscores
 params[$i]=${params[$i]// /_}
 #make all column headers lower case
