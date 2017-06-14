@@ -27,6 +27,8 @@ echo "${params[$i]} --> " >> log.txt
 #remove all slashes
 params[$i]=${params[$i]//'/'/}
 echo "${params[$i]} --> " >> log.txt
+params[$i]=${params[$i]//'.'/}
+echo "${params[$i]} --> " >> log.txt
 #replace % and 3 with words
 params[$i]=${params[$i]//'#'/'num'}
 params[$i]=${params[$i]//'%'/'percent'}
@@ -38,7 +40,7 @@ params[$i]=${params[$i]//'-'/}
 echo "${params[$i]} --> " >> log.txt
 
 #replace spaces with underscores
-params[$i]=$(echo ${params[i]} | sed 's/ /_/g' )
+params[$i]=$(echo ${params[i]} | sed 's/[[:blank:]] /_/g' )
 echo "${params[$i]} --> " >> log.txt
 #make all column headers lower case
 params[$i]=${params[$i],,}
