@@ -17,11 +17,12 @@ tail -n +2 boston-school-data/raw-zone/$file > boston-school-data/hive-raw-zone/
 #parse out the headers
 header=$(cut -d$'\n' -f 1 boston-school-data/raw-zone/$file)
 
-if ["$filename" -eq "Non_Public_Schools"];then
-    IFS=$'\t' read -r -a params <<< "$header"
-else
-    IFS=',' read -r -a params <<< "$header"
-fi
+case $filename in
+    "Non_Public"*)
+        IFS=$'\t' read -r -a params <<< "$header" ;;
+    *)
+        IFS=',' read -r -a params <<< "$header";;
+esac
 
 #modify headers to work with hive
 for i in $(seq 0 ${#params[@]})
