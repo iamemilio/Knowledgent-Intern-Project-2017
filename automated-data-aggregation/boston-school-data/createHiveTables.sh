@@ -30,8 +30,6 @@ do
 echo "transforming: ${params[$i]}
 " >> log.txt
 echo "${params[$i]} --> " >> log.txt
-#get rid of stupid spaces
-params[$i]=$(echo ${params[i]} |sed 's/[$spaces]/ /g')
 #remove leading and trailinig whitespace
 params[$i]=$(echo ${params[i]} | sed 's/^ *//g' | sed 's/ *$//g')
 echo "${params[$i]} --> " >> log.txt
