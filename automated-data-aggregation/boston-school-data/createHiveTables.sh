@@ -16,21 +16,22 @@ IFS=',' read -r -a params <<< "$header"
 #modify headers to work with hive
 for i in $(seq 1 ${#params[@]})
 do
-#remove leading and trailinig whitespace
-params[$i]=$(echo ${params[i]} | sed 's/^ *//g' | sed 's/ *$//g')
+#remove leading and trailinig whitespace, colons, slashes, #, %, (), -, replace spaces with underscores, 
+params[$i]=$(echo ${params[i]} | sed 's/^ *//g' | sed 's/ *$//g' | sed 's/':'//g' | sed 's/'/'//g'| sed 's/'#'/'num'/g'| sed 's/'%'/'percent'/g'| sed 's/'('//g'| sed 's/')'//g'| sed 's/'-'//g'| sed 's/ /_/g')
 #remove colons
-params[$i]=${params[$i]//':'/}
+#params[$i]=${params[$i]//':'/}
 #remove all slashes
-params[$i]=${params[$i]//'/'/}
+#params[$i]=${params[$i]//'/'/}
 #replace % and 3 with words
-params[$i]=${params[$i]//'#'/'num'}
-params[$i]=${params[$i]//'%'/'percent'}
-params[$i]=${params[$i]//'('/}
-params[$i]=${params[$i]//')'/}
+#params[$i]=${params[$i]//'#'/'num'}
+#params[$i]=${params[$i]//'%'/'percent'}
+#params[$i]=${params[$i]//'('/}
+#params[$i]=${params[$i]//')'/}
 #remove dashes
-params[$i]=${params[$i]//'-'/}
+#params[$i]=${params[$i]//'-'/}
+
 #replace spaces in column headers with underscores
-params[$i]=${params[$i]//' '/_}
+#params[$i]=${params[$i]//' '/_}
 #make all column headers lower case
 params[$i]=${params[$i],,}
 
