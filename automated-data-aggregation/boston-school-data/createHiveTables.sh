@@ -16,25 +16,33 @@ IFS=',' read -r -a params <<< "$header"
 #modify headers to work with hive
 for i in $(seq 1 ${#params[@]})
 do
+echo "transforming: ${params[$i]}\n" >> log.txt
+echo "${params[$i]} --> " >> log.txt
 #remove leading and trailinig whitespace
 params[$i]=$(echo ${params[i]} | sed 's/^ *//g' | sed 's/ *$//g')
+echo "${params[$i]} --> " >> log.txt
 #remove colons
 params[$i]=${params[$i]//':'/}
+echo "${params[$i]} --> " >> log.txt
 #remove all slashes
 params[$i]=${params[$i]//'/'/}
+echo "${params[$i]} --> " >> log.txt
 #replace % and 3 with words
 params[$i]=${params[$i]//'#'/'num'}
 params[$i]=${params[$i]//'%'/'percent'}
 params[$i]=${params[$i]//'('/}
 params[$i]=${params[$i]//')'/}
+echo "${params[$i]} --> " >> log.txt
 #remove dashes
 params[$i]=${params[$i]//'-'/}
+echo "${params[$i]} --> " >> log.txt
 
 #replace spaces with underscores
 params[$i]=$(echo ${params[i]} | sed 's/ /_/g' )
+echo "${params[$i]} --> " >> log.txt
 #make all column headers lower case
 params[$i]=${params[$i],,}
-
+echo "${params[$i]}\n\n" >> log.txt
 done
 
 #create hive tables for data sets
