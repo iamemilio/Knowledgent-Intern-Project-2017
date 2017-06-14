@@ -30,7 +30,7 @@ params[$i]=${params[$i]//')'/}
 #remove dashes
 params[$i]=${params[$i]//'-'/}
 #replace spaces in column headers with underscores
-params[$i]=${params[$i]// /_}
+params[$i]=${params[$i]//' '/_}
 #make all column headers lower case
 params[$i]=${params[$i],,}
 
@@ -98,7 +98,7 @@ ${params[201]} string, ${params[202]} string, ${params[203]} string, ${params[20
         STORED AS TEXTFILE;" >> boston-school-data/load-data.hql
         ;;    
 esac
-echo "LOAD DATA INPATH '/data/hive/hive-raw-zone/$filename-stripped.csv' INTO  TABLE boston_data.$filename;" >> boston-school-data/load-data.hql
+echo "LOAD DATA INPATH 'data/hive/hive-raw-zone/$filename-stripped.csv' INTO  TABLE boston_data.$filename;" >> boston-school-data/load-data.hql
 done
 
 #move files into hdfs
