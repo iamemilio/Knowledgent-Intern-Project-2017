@@ -16,7 +16,8 @@ IFS=',' read -r -a params <<< "$header"
 #modify headers to work with hive
 for i in $(seq 1 ${#params[@]})
 do
-echo "transforming: ${params[$i]}\n" >> log.txt
+echo "transforming: ${params[$i]}
+" >> log.txt
 echo "${params[$i]} --> " >> log.txt
 #remove leading and trailinig whitespace
 params[$i]=$(echo ${params[i]} | sed 's/^ *//g' | sed 's/ *$//g')
@@ -44,7 +45,9 @@ params[$i]=$(echo ${params[i]} | sed 's/[[:blank:]] /_/g' )
 echo "${params[$i]} --> " >> log.txt
 #make all column headers lower case
 params[$i]=${params[$i],,}
-echo "${params[$i]}\n\n" >> log.txt
+echo "${params[$i]}
+
+" >> log.txt
 done
 
 #create hive tables for data sets
