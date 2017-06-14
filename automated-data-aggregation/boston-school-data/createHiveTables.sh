@@ -41,7 +41,7 @@ params[$i]=${params[$i]//'-'/}
 echo "${params[$i]} --> " >> log.txt
 
 #replace spaces with underscores
-params[$i]=$(echo ${params[i]} | sed 's/[[:blank:]] /_/g' )
+params[$i]=$(echo ${params[i]} | sed 's/ /_/g' )
 echo "${params[$i]} --> " >> log.txt
 #make all column headers lower case
 params[$i]=${params[$i],,}
