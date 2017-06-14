@@ -12,6 +12,7 @@ echo "CREATE DATABASE IF NOT EXISTS boston_data;" >> boston-school-data/load-dat
 for file in $(ls boston-school-data/raw-zone)
 do
 filename=$(echo "$file" | cut -d$'.' -f 1) 
+awk 'NR==1{sub(/^\xef\xbb\xbf/,"")}1' $file > $file
 tail -n +2 boston-school-data/raw-zone/$file > boston-school-data/hive-raw-zone/$filename-stripped.csv
 
 #parse out the headers
@@ -30,6 +31,7 @@ do
 echo "transforming: ${params[$i]}
 " >> log.txt
 echo "${params[$i]} --> " >> log.txt
+
 #remove leading and trailinig whitespace
 params[$i]=$(echo ${params[i]} | sed 's/^ *//g' | sed 's/ *$//g')
 echo "${params[$i]} --> " >> log.txt
