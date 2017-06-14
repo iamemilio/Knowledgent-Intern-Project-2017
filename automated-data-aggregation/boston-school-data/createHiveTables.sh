@@ -58,6 +58,9 @@ params[$i]=$(echo ${params[i]} | sed 's/ /_/g' )
 echo "${params[$i]} --> " >> log.txt
 #make all column headers lower case
 params[$i]=${params[$i],,}
+
+params[$i]=$(echo ${params[i]} | sed '1 s/\xEF\xBB\xBF//')
+
 echo "${params[$i]}
 
 " >> log.txt
