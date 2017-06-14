@@ -16,7 +16,12 @@ tail -n +2 boston-school-data/raw-zone/$file > boston-school-data/hive-raw-zone/
 
 #parse out the headers
 header=$(cut -d$'\n' -f 1 boston-school-data/raw-zone/$file)
-IFS=',' read -r -a params <<< "$header"
+
+if ["$filename" -eq "Non_Public_Schools"];then
+    IFS=$'\t' read -r -a params <<< "$header"
+else
+    IFS=',' read -r -a params <<< "$header"
+fi
 
 #modify headers to work with hive
 for i in $(seq 0 ${#params[@]})
@@ -109,7 +114,7 @@ ${params[201]} string, ${params[202]} string, ${params[203]} string, ${params[20
     "Non_Public"*)
         echo "CREATE EXTERNAL TABLE IF NOT EXISTS boston_data.$filename ( ${params[0]} double, ${params[1]} double, ${params[2]} int, ${params[3]} int, ${params[4]} int, ${params[5]} string, ${params[6]} string, ${params[7]} string, ${params[8]} string, ${params[9]} string, ${params[10]} string, ${params[11]} string, ${params[12]} string, ${params[13]} string, ${params[14]} string, ${params[15]} string ) 
         ROW FORMAT DELIMITED 
-        FIELDS TERMINATED BY ','
+        FIELDS TERMINATED BY '\t'
         LINES TERMINATED BY '\n' 
         STORED AS TEXTFILE
         LOCATION '/user/$1/hive/raw-zone/$filename';" >> boston-school-data/load-data.hql
