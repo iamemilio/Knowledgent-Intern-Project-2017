@@ -45,42 +45,26 @@ esac
 #modify headers to work with hive
 for i in $(seq 0 ${#params[@]})
 do
-echo "transforming: ${params[$i]}
-" >> log.txt
-echo "${params[$i]} --> " >> log.txt
-
 #remove leading and trailinig whitespace
 params[$i]=$(echo ${params[i]} | sed 's/^ *//g' | sed 's/ *$//g')
-echo "${params[$i]} --> " >> log.txt
 #remove colons
 params[$i]=${params[$i]//':'/}
-echo "${params[$i]} --> " >> log.txt
 #remove all slashes
 params[$i]=${params[$i]//'/'/}
-echo "${params[$i]} --> " >> log.txt
 params[$i]=${params[$i]//'.'/}
-echo "${params[$i]} --> " >> log.txt
 #replace % and 3 with words
 params[$i]=${params[$i]//'#'/'num'}
 params[$i]=${params[$i]//'%'/'percent'}
 params[$i]=${params[$i]//'('/}
 params[$i]=${params[$i]//')'/}
-echo "${params[$i]} --> " >> log.txt
 #remove dashes
 params[$i]=${params[$i]//'-'/}
-echo "${params[$i]} --> " >> log.txt
-
 #replace spaces with underscores
 params[$i]=$(echo ${params[i]} | sed 's/ /_/g' )
-echo "${params[$i]} --> " >> log.txt
 #make all column headers lower case
 params[$i]=${params[$i],,}
 #remove dumb unicode characters
 params[$i]=$(echo ${params[i]} | sed '1 s/\xEF\xBB\xBF//')
-
-echo "${params[$i]}
-
-" >> log.txt
 done
 
 #create hive tables for data sets
@@ -95,7 +79,7 @@ ${params[201]} string, ${params[202]} string, ${params[203]} string, ${params[20
         FIELDS TERMINATED BY ',' 
         LINES TERMINATED BY '\n' 
         STORED AS TEXTFILE
-        LOCATION '/user/$1/hive/raw-zone/$filename';" >> boston-school-data/load-data.hql
+        LOCATION '/user/$1/$database/data/raw-zone/hive-raw-zone/$filename';" >> boston-school-data/load-data.hql
         ;;
 
     "Employee_Earnings"*)
@@ -104,7 +88,7 @@ ${params[201]} string, ${params[202]} string, ${params[203]} string, ${params[20
         FIELDS TERMINATED BY ',' 
         LINES TERMINATED BY '\n' 
         STORED AS TEXTFILE
-        LOCATION '/user/$1/hive/raw-zone/$filename';" >> boston-school-data/load-data.hql
+        LOCATION '/user/$1/$database/data/raw-zone/hive-raw-zone/$filename';" >> boston-school-data/load-data.hql
         ;;    
 
     "EducatorEval"*)
@@ -113,7 +97,7 @@ ${params[201]} string, ${params[202]} string, ${params[203]} string, ${params[20
         FIELDS TERMINATED BY ',' 
         LINES TERMINATED BY '\n' 
         STORED AS TEXTFILE
-        LOCATION '/user/$1/hive/raw-zone/$filename';" >> boston-school-data/load-data.hql
+        LOCATION '/user/$1/$database/data/raw-zone/hive-raw-zone/$filename';" >> boston-school-data/load-data.hql
         ;;
 
     "Gradsattendingcollege"*)
@@ -122,7 +106,7 @@ ${params[201]} string, ${params[202]} string, ${params[203]} string, ${params[20
         FIELDS TERMINATED BY ',' 
         LINES TERMINATED BY '\n' 
         STORED AS TEXTFILE
-        LOCATION '/user/$1/hive/raw-zone/$filename';" >> boston-school-data/load-data.hql
+        LOCATION '/user/$1/$database/data/raw-zone/hive-raw-zone/$filename';" >> boston-school-data/load-data.hql
         ;;    
 
     "graduates"*)
@@ -131,7 +115,7 @@ ${params[201]} string, ${params[202]} string, ${params[203]} string, ${params[20
         FIELDS TERMINATED BY ',' 
         LINES TERMINATED BY '\n' 
         STORED AS TEXTFILE
-        LOCATION '/user/$1/hive/raw-zone/$filename';" >> boston-school-data/load-data.hql
+        LOCATION '/user/$1/$database/data/raw-zone/hive-raw-zone/$filename';" >> boston-school-data/load-data.hql
         ;;
 
     "Non_Public"*)
@@ -140,7 +124,7 @@ ${params[201]} string, ${params[202]} string, ${params[203]} string, ${params[20
         FIELDS TERMINATED BY '\t'
         LINES TERMINATED BY '\n' 
         STORED AS TEXTFILE
-        LOCATION '/user/$1/hive/raw-zone/$filename';" >> boston-school-data/load-data.hql
+        LOCATION '/user/$1/$database/data/raw-zone/hive-raw-zone/$filename';" >> boston-school-data/load-data.hql
         ;;    
 
     "Public"*)
@@ -149,18 +133,19 @@ ${params[201]} string, ${params[202]} string, ${params[203]} string, ${params[20
         FIELDS TERMINATED BY ',' 
         LINES TERMINATED BY '\n' 
         STORED AS TEXTFILE
-        LOCATION '/user/$1/hive/raw-zone/$filename';" >> boston-school-data/load-data.hql
+        LOCATION '/user/$1/$database/data/raw-zone/hive-raw-zone/$filename';" >> boston-school-data/load-data.hql
         ;;    
 esac
-echo "LOAD DATA INPATH 'hdfs:/user/$1/data/hive/hive-raw-zone/$filename-stripped.csv' INTO TABLE $database.$filename;" >> boston-school-data/load-data.hql
+echo "LOAD DATA INPATH 'hdfs:/user/$1/$database/data/raw-zone/hive-raw-zone/$filename-stripped.csv' INTO TABLE $database.$filename;" >> boston-school-data/load-data.hql
 done
 
 #move files into hdfs
-hadoop fs -mkdir data
-hadoop fs -mkdir data/hive
-hadoop fs -put boston-school-data/hive-raw-zone/ data/hive/
-hadoop fs -mkdir hive
-hadoop fs -mkdir hive/raw-zone
+hadoop fs -mkdir $database
+hadoop fs -mkdir $database/data
+hadoop fs -mkdir $database/data/raw-zone
+hadoop fs -put boston-school-data/hive-raw-zone/ $database/data/raw-zone
+hadoop fs -mkdir $database/hive
+hadoop fs -mkdir $database/hive/raw-zone
 
 case $4 in
     "-h")
