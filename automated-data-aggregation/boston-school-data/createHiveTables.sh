@@ -143,7 +143,7 @@ done
 hadoop fs -mkdir $database
 hadoop fs -mkdir $database/data
 hadoop fs -mkdir $database/data/raw-zone
-hadoop fs -put $database/hive-raw-zone/ $database/data/raw-zone
+hadoop fs -put boston-school-data/hive-raw-zone/ $database/data/raw-zone
 hadoop fs -mkdir $database/hive
 hadoop fs -mkdir $database/hive/raw-zone
 
