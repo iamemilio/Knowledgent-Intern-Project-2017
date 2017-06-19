@@ -139,7 +139,7 @@ esac
 echo "LOAD DATA INPATH 'hdfs:/user/$1/$database/data/raw-zone/hive-raw-zone/$filename-stripped.csv' INTO TABLE $database.$filename;" >> boston-school-data/load-data.hql
 done
 
-#move files into hdfs
+#move files into hdfsa
 hadoop fs -mkdir $database
 hadoop fs -mkdir $database/data
 hadoop fs -mkdir $database/data/raw-zone
