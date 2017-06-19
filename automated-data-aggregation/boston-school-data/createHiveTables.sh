@@ -29,7 +29,7 @@ esac
 for file in $(ls boston-school-data/raw-zone)
 do
 filename=$(echo "$file" | cut -d$'.' -f 1) 
-awk 'NR==1{sub(/^\xef\xbb\xbf/,"")}1' $file > $file
+#awk 'NR==1{sub(/^\xef\xbb\xbf/,"")}1' $file > $file
 tail -n +2 boston-school-data/raw-zone/$file > boston-school-data/hive-raw-zone/$filename-stripped.csv
 
 #parse out the headers
