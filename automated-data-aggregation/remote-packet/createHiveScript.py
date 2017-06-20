@@ -30,7 +30,7 @@ def prepData(database, user):
                 header = rawData[0].strip('\n')
             
             headers=header.split(delimiter)
-            tableString="CREATE EXTERNAL TABLE IF NOT EXISTS " + database + "." + filename " ( "
+            tableString="CREATE EXTERNAL TABLE IF NOT EXISTS " + database + "." + filename + " ( "
             types = getHiveTypes(index)
             for i in range(len(headers)):
                 headers[i] = headers[i].strip('\n')
