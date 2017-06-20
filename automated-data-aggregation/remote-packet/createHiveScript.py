@@ -26,7 +26,7 @@ def prepData(database, user):
             index,file,url,delimiter=source.split(",")
             filename=file.split(".")[0]
             header=""
-            with open('raw-data/file', 'r+') as rawData:
+            with open('raw-data/' + file, 'r+') as rawData:
                 header = rawData[0].strip('\n')
             
             headers=header.split(delimiter)
