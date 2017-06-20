@@ -34,7 +34,8 @@ read -p "User: " user
 read -p "IP and Port: " IP
 path="$user@$IP"
 scp -r remote-packet "$path":~/
-if [ "$offlineData" -eq "y" ]; then
-    scp -r raw-data "$path":~/remote-packet/
-fi
+case $offlineData in
+    "y|Y")
+        scp -r raw-data "$path":~/remote-packet/ ;;
+esac
 ssh "$path" bash remote-packet/load-hive-tables.sh $user $newDB $database $hive $beelineJDBC $offlineData
