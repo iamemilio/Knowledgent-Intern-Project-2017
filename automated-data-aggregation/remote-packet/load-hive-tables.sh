@@ -12,8 +12,8 @@ if [[ -z "$6" || "$6" -eq "n" ]]; then
     IFS=$'\n' read -r -a dataSource <<< "$(cat $workspace/data-sources.csv)"
     for source in "${dataSource[@]}"
     do
-        name="$(cut -d$',' -f 2 $source)"
-        addr="$(cut -d$',' -f 3 $source)"
+        name="$(echo $source | cut -d$',' -f 2 )"
+        addr="$(echo $source | cut -d$',' -f 3 )"
         wget -O "$3"-data/raw-data/"$name" "$addr"
     done
     else
