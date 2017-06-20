@@ -43,7 +43,6 @@ esac
 for file in $(ls "$3"-data/raw-data)
 do
 filename=$(echo "$file" | cut -d$'.' -f 1)
-#awk 'NR==1{sub(/^\xef\xbb\xbf/,"")}1' $file > $file
 tail -n +2 "$3"-data/raw-data/$file > "$3"-data/hive-ready-raw-data/$filename-stripped.csv
-
 python3 -c 'import prep-data; prepData($database, $1)'
+done
