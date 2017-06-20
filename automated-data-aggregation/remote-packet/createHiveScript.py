@@ -27,7 +27,7 @@ def prepData(database, user):
             filename=file.split(".")[0]
             header=""
             with open("raw-data/" + file, 'r+') as rawData:
-                header = rawData[0].strip('\n')
+                header = rawData.readlines()[0].strip('\n')
             
             headers=header.split(delimiter)
             tableString="CREATE EXTERNAL TABLE IF NOT EXISTS " + database + "." + filename + " ( "
