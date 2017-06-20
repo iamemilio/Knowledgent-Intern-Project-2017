@@ -33,9 +33,9 @@ case $2 in
         fi ;;
     "n")
         if [ -z "$3" ]; then
-            database=boston_data;
+            database=boston_data
         else
-            database=$3
+            database="$3"
         fi ;;
 esac
 
