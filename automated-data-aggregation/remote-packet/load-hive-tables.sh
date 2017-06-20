@@ -42,7 +42,7 @@ esac
 
 for file in $(ls "$3"-data/raw-data)
 do
-filename=$(echo "$file" | cut -d$'.' -f 1)
-tail -n +2 "$3"-data/raw-data/$file > "$3"-data/hive-ready-raw-data/$filename-stripped.csv
-python3 -c 'import prep-data; prepData($database, $1)'
+    filename=$(echo "$file" | cut -d$'.' -f 1)
+    tail -n +2 "$3"-data/raw-data/$file > "$3"-data/hive-ready-raw-data/$filename-stripped.csv
+    python3 -c 'import prep-data; prepData($database, $1)'
 done
