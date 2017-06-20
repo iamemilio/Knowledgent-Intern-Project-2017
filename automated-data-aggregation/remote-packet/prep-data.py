@@ -1,0 +1,46 @@
+import csv
+remove=[\
+('-', ['']), \
+(':', ['']), \
+(';', ['']), \
+('.', ['']), \
+('/', ['']), \
+('(', ['']), \
+(')', ['']), \
+('\\',['']), \
+(',', ['']), \
+('%', ['percent']),\
+('#', ['num'])]
+
+
+def getHiveTypes(num):
+    with open(file, 'r+') as f:
+        hiveScript = f.readlines()[num].strip('\n')
+        types = hiveScript.split('\t')
+        return types
+
+def prepData(database, user):
+    hiveScript = open('load-data.hql', 'a+')
+    with open('data-sources.csv', 'r+') as sources:
+        for source in sources:
+            source.strip('\n')
+            index,file,url,delimiter=source.split("\t")
+            filename=file.split(".")[0]
+            header=""
+            with open('raw-data/file', 'r+') as rawData:
+                header = rawData[0].strip('\n')
+            
+            headers=header.split(delimiter)
+            tableString="CREATE EXTERNAL TABLE IF NOT EXISTS " + database + "." + filename " ( "
+            types = getHiveTypes(index)
+            for i in range(len(headers)):
+                headers[i] = headers[i].strip('\n')
+                for (char,replacement) in remove:
+                    headers[i] = replace(headers[i], replacement)
+                if i == len(headers) - 1:
+                    tableString = tableString + headers[i] + types[i] + ") "
+                else:
+                    tableString = tableString + headers[i] + types[i] + ","
+            tableString = tableString + "ROW FORMAT DELIMITED FIELDS TERMINATED BY \'\\t\' LINES TERMINATED BY \'\\n\' STORED AS TEXTFILE LOCATION '/user/" + user + "/" + database + \
+            "/data/raw-zone/hive-ready-raw-data/" + filename + "\';"
+            print(tablestring)

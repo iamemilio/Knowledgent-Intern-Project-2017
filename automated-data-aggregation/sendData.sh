@@ -27,9 +27,14 @@ case $q2 in
         ;;
 esac
 
+read -p "Do you need to use offline data? [y|n]: " offlineData
+
 echo "Enter your hadoop login info below."
 read -p "User: " user
 read -p "IP and Port: " IP
 path="$user@$IP"
-scp -r boston-school-data "$path":~/
-ssh "$path" bash boston-school-data/createHiveTables.sh $user $newDB $database $hive $beelineJDBC
+scp -r remote-packet "$path":~/
+if [ "$offlineData" -eq "y" ]; then
+    scp -r raw-data "$path":~/remote-packet/
+fi
+ssh "$path" bash remote-packet/load-hive-tables.sh $user $newDB $database $hive $beelineJDBC $offlineData
