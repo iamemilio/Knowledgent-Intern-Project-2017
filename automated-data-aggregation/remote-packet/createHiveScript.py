@@ -15,6 +15,7 @@ remove=[\
 
 def getHiveTypes(num):
     with open('types.csv', 'r+') as f:
+        f = unicode(f, errors='replace')
         content = f.readlines()
         hiveScript = [x.strip() for x in content] 
         return hiveScript.split(',')
@@ -28,6 +29,7 @@ def prepData(database, user):
             filename=file.split(".")[0]
             header=""
             with open("raw-data/" + file, 'r+') as rawData:
+                rawData = unicode(rawData, errors='replace')
                 content = rawData.readlines()
                 header = [x.strip() for x in content] 
             
