@@ -46,5 +46,6 @@ for file in $(ls "$workspace"/raw-data)
 do
     filename=$(echo "$file" | cut -d$'.' -f 1)
     tail -n +2 "$workspace"/raw-data/$file > "$workspace"/hive-ready-raw-data/$filename-stripped.csv
-    python3 -c 'import prep-data; prepData($database, $1)'
 done
+cd $workspace
+python3 -c 'import prep-data; prepData($database, $1)'
