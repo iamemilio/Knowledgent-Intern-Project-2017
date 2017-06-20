@@ -43,4 +43,7 @@ def prepData(database, user):
                     tableString = tableString + headers[i] + types[i] + ","
             tableString = tableString + "ROW FORMAT DELIMITED FIELDS TERMINATED BY \'\\t\' LINES TERMINATED BY \'\\n\' STORED AS TEXTFILE LOCATION '/user/" + user + "/" + database + \
             "/data/raw-zone/hive-ready-raw-data/" + filename + "\';"
+            loadString = "LOAD DATA INPATH \'hdfs:/user/" + user + "/" + database + "/data/raw-zone/hive-ready-raw-data/" + filename + "-stripped.csv\' INTO TABLE " + database + "." + filename + ";"
             print(tablestring)
+            print(loadString)
+    hiveScript.close()
