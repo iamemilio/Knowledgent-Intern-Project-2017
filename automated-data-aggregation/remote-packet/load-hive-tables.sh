@@ -14,6 +14,7 @@ if [[ -z "$6" || "$6" -eq "n" ]]; then
         name="$(cut -d$',' -f 2 $source)"
         addr="$(cut -d$',' -f 3 $source)"
         wget -O "$name" "$addr"
+    done
     else
         IFS=$'\n' read -r -a dataSource <<< "$(cat data-sources.csv)"
 fi
