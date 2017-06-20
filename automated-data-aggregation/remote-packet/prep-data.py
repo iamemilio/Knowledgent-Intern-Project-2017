@@ -14,17 +14,16 @@ remove=[\
 
 
 def getHiveTypes(num):
-    with open(file, 'r+') as f:
+    with open('types.csv', 'r+') as f:
         hiveScript = f.readlines()[num].strip('\n')
-        types = hiveScript.split('\t')
-        return types
+        return hiveScript.split(',')
 
 def prepData(database, user):
     hiveScript = open('load-data.hql', 'a+')
     with open('data-sources.csv', 'r+') as sources:
         for source in sources:
             source.strip('\n')
-            index,file,url,delimiter=source.split("\t")
+            index,file,url,delimiter=source.split(",")
             filename=file.split(".")[0]
             header=""
             with open('raw-data/file', 'r+') as rawData:
