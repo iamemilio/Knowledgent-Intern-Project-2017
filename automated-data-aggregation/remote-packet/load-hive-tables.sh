@@ -4,11 +4,12 @@ if [ -z "$1" ]; then
     echo "No user provided! Exiting!"
     exit 1
 fi
-    mv remote-packet "$3"-data
+mv remote-packet "$3"-data
+workspace="$3"-data
 if [[ -z "$6" || "$6" -eq "n" ]]; then
-    mkdir "$3"-data
-    mkdir "$3"-data/raw-data
-    IFS=$'\n' read -r -a dataSource <<< "$(cat data-sources.csv)"
+    mkdir "$workspace"
+    mkdir "$workspace"/raw-data
+    IFS=$'\n' read -r -a dataSource <<< "$(cat $workspace/data-sources.csv)"
     for source in "${dataSource[@]}"
     do
         name="$(cut -d$',' -f 2 $source)"
@@ -16,21 +17,21 @@ if [[ -z "$6" || "$6" -eq "n" ]]; then
         wget -O "$3"-data/raw-data/"$name" "$addr"
     done
     else
-        IFS=$'\n' read -r -a dataSource <<< "$(cat data-sources.csv)"
+        IFS=$'\n' read -r -a dataSource <<< "$(cat $workspace/data-sources.csv)"
 fi
 
-mkdir "$3"-data/hive-ready-raw-data
-touch "$3"-data/load-data.hql
+mkdir "$workspace"/hive-ready-raw-data
+touch "$workspace"/load-data.hql
 
 #if make new database --> use $3 as name or use default if $3 is blank otherwise use $3 database
 case $2 in
     "y")
         if [ -z "$3" ]; then
-            echo "CREATE DATABASE IF NOT EXISTS boston_data;" >> "$3"-data/load-data.hql
+            echo "CREATE DATABASE IF NOT EXISTS boston_data;" >> "$workspace"/load-data.hql
             database=boston_data;
         else
             database=$3
-            echo "CREATE DATABASE IF NOT EXISTS $3;" >> "$3"-data/load-data.hql
+            echo "CREATE DATABASE IF NOT EXISTS $3;" >> "$workspace"/load-data.hql
         fi ;;
     "n")
         if [ -z "$3" ]; then
@@ -41,9 +42,9 @@ case $2 in
 esac
 
 
-for file in $(ls "$3"-data/raw-data)
+for file in $(ls "$workspace"/raw-data)
 do
     filename=$(echo "$file" | cut -d$'.' -f 1)
-    tail -n +2 "$3"-data/raw-data/$file > "$3"-data/hive-ready-raw-data/$filename-stripped.csv
+    tail -n +2 "$workspace"/raw-data/$file > "$workspace"/hive-ready-raw-data/$filename-stripped.csv
     python3 -c 'import prep-data; prepData($database, $1)'
 done
