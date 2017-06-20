@@ -1,4 +1,4 @@
-import csv
+import encodings
 remove=[\
 ('-', ['']), \
 (':', ['']), \
