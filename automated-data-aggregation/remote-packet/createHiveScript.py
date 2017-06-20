@@ -15,7 +15,8 @@ remove=[\
 
 def getHiveTypes(num):
     with open('types.csv', 'r+') as f:
-        hiveScript = f.readlines()[num].strip('\n')
+        content = f.readlines()
+        hiveScript = [x.strip() for x in content] 
         return hiveScript.split(',')
 
 def prepData(database, user):
@@ -27,7 +28,8 @@ def prepData(database, user):
             filename=file.split(".")[0]
             header=""
             with open("raw-data/" + file, 'r+') as rawData:
-                header = rawData.readlines()[0].strip('\n')
+                content = rawData.readlines()
+                header = [x.strip() for x in content] 
             
             headers=header.split(delimiter)
             tableString="CREATE EXTERNAL TABLE IF NOT EXISTS " + database + "." + filename + " ( "
