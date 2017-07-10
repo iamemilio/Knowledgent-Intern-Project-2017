@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+#hadoop user ; create new db flag; databe name; hive or beeline; jdbc string for beeline or hive2; use offline data flag;
 if [ -z "$1" ]; then
     echo "No user provided! Exiting!"
     exit 1
@@ -49,4 +51,4 @@ do
     tail -n +2 "$workspace"/raw-data/$file > "$workspace"/hive-ready-raw-data/$filename-stripped.csv
 done
 cd $workspace
-python3 -c "import createHiveScript" "createHiveScript.prepData('$database', '$1')"
+python3 -c 'import createHiveScript; createHiveScript.prepData("$database", "$1")''

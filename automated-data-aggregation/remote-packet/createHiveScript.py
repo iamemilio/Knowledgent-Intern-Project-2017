@@ -77,5 +77,4 @@ def prepData(database, user):
             print(file + " succesfully prepared! \n")
             hiveScript.write(tableString)
             hiveScript.write(loadString)
-
     hiveScript.close()
