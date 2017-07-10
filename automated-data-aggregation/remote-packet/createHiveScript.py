@@ -1,4 +1,8 @@
 import encodings
+import io
+import chardet
+import codecs
+
 remove=[\
 ('-', ['']), \
 (':', ['']), \
@@ -16,8 +20,15 @@ remove=[\
 
 def getHiveTypes(num):
     with open('types.csv', 'r+') as f:
-        f = unicode(f, errors='replace')
-        content = f.readlines()
+        if f.startswith(codecs.BOM_UTF8):
+            encoding = 'utf-8-sig'
+        else:
+            result = chardet.detect(raw)
+            encoding = result['encoding']
+
+        infile = io.open('types.csv', 'r', encoding=encoding)
+        content = infile.readlines()
+        infile.close()
         hiveScript = [x.strip() for x in content] 
         return hiveScript.split(',')
 
