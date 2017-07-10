@@ -1,7 +1,7 @@
 import encodings
 import io
-import chardet
 import codecs
+import chardet
 
 remove=[\
 ('-', ['']), \
@@ -15,65 +15,67 @@ remove=[\
 (',', ['']), \
 ('%', ['percent']),\
 ('#', ['num']), \
-(' ', [''])]
-
+('\s\s\s', ['_']), \
+('\s\s', ['_']), \
+('\s', ['_'])]
 
 def getHiveTypes(num):
-    with open('types.csv', 'r+') as f:
-        if f.startswith(codecs.BOM_UTF8):
-            encoding = 'utf-8-sig'
-        else:
-            result = chardet.detect(f)
-            encoding = result['encoding']
-        infile = io.open('types.csv', 'r', encoding=encoding)
-        content = infile.readlines()
-        infile.close()
-        hiveScript = [x.strip() for x in content] 
-        return hiveScript.split(',')
+    with open('types.csv', 'rt+') as f:
+        content = f.readlines()
+        all_data = [x.strip() for x in content]
+        data = all_data[num]
+        return data.split(',')
 
 def prepData(database, user):
     hiveScript = open('load-data.hql', 'a+')
-    with open('data-sources.csv', 'r+') as raw:
-        if raw.startswith(codecs.BOM_UTF8):
-            encoding = 'utf-8-sig'
-        else:
-            result = chardet.detect(raw)
-            encoding = result['encoding']
-        infile = io.open('data-sources.csv', 'r', encoding=encoding)
-        sources = infile.readlines()
-        infile.close()
-        for source in sources:
+    with open('data-sources.csv', 'rt+') as raw:
+        sources = raw.readlines()
+        for source_index in range(1, len(sources)):
+            source = sources[source_index]
             source.strip('\n')
-            index,file,url,delimiter,header_row=source.split(",")
+            index,file,url,delimiter,header_row = source.split(",")
+            print("Preparing HQL script for " + file)
             filename=file.split(".")[0]
             header=""
 
             #open file to be modified
-            raw_file = open("raw-data/" + file, 'r+')
-            if raw_file.startswith(codecs.BOM_UTF8):
-                encoding = 'utf-8-sig'
-            else:
-                result = chardet.detect(raw_file)
-                encoding = result['encoding']
-            infile = io.open('data-sources.csv', 'r', encoding=encoding)
-            sources = infile.readlines()
-            infile.close()
-            content = rawData.readlines()
-            header = [x.strip() for x in content] 
-            headers=header.split(delimiter)
-            tableString="CREATE EXTERNAL TABLE IF NOT EXISTS " + database + "." + filename + " ( "
-            types = getHiveTypes(index)
+            src = "raw-data/" + file
+            bom = open(src, 'rb')
+            raw_bom = file.read(32)
+            encoding = chardet.detect(raw_bom)['encoding']
+            bom.close()
+            
+            raw_file = open(src, mode='r+', encoding=encoding)
+            content = raw_file.readlines()
+
+            #strip header
+            header = content[int(header_row)].strip()
+            if delimiter == 'c' or delimiter == 'comma':
+                delimiter = ','
+            headers = header.split(delimiter)
+            raw_file.close()
+
+            #write HQL Script
+            tableString = "CREATE EXTERNAL TABLE IF NOT EXISTS " + database + "." + filename + " ( "
+            types = getHiveTypes(int(index))
+
+            print("headers: " + str(len(headers)))
+            print("types: " + str(len(types)))
+
+            #prep headers and write to HQL script
             for i in range(len(headers)):
                 headers[i] = headers[i].strip('\n')
                 for (char,replacement) in remove:
-                    headers[i] = replace(headers[i], replacement)
+                    headers[i] = headers[i].replace(char, replacement[0])
                 if i == len(headers) - 1:
-                    tableString = tableString + headers[i] + types[i] + ") "
+                    tableString = tableString + headers[i] + " " + types[i] + ") "
                 else:
-                    tableString = tableString + headers[i] + types[i] + ","
+                    tableString = tableString + headers[i] + " " + types[i] + ","
             tableString = tableString + "ROW FORMAT DELIMITED FIELDS TERMINATED BY \'\\t\' LINES TERMINATED BY \'\\n\' STORED AS TEXTFILE LOCATION '/user/" + user + "/" + database + \
             "/data/raw-zone/hive-ready-raw-data/" + filename + "\';"
             loadString = "LOAD DATA INPATH \'hdfs:/user/" + user + "/" + database + "/data/raw-zone/hive-ready-raw-data/" + filename + "-stripped.csv\' INTO TABLE " + database + "." + filename + ";"
-            print(tablestring)
+            print(tableString)
             print(loadString)
+            print(file + " succesfully prepared! \n")
     hiveScript.close()
+    
