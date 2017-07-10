@@ -49,4 +49,4 @@ do
     tail -n +2 "$workspace"/raw-data/$file > "$workspace"/hive-ready-raw-data/$filename-stripped.csv
 done
 cd $workspace
-python3 -c "import createHiveScript; createHiveScript.prepData('$database', '$1')"
+python3 -c "import createHiveScript" "createHiveScript.prepData('$database', '$1')"
