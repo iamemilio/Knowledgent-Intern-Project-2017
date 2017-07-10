@@ -23,9 +23,8 @@ def getHiveTypes(num):
         if f.startswith(codecs.BOM_UTF8):
             encoding = 'utf-8-sig'
         else:
-            result = chardet.detect(raw)
+            result = chardet.detect(f)
             encoding = result['encoding']
-
         infile = io.open('types.csv', 'r', encoding=encoding)
         content = infile.readlines()
         infile.close()
@@ -34,17 +33,33 @@ def getHiveTypes(num):
 
 def prepData(database, user):
     hiveScript = open('load-data.hql', 'a+')
-    with open('data-sources.csv', 'r+') as sources:
+    with open('data-sources.csv', 'r+') as raw:
+        if raw.startswith(codecs.BOM_UTF8):
+            encoding = 'utf-8-sig'
+        else:
+            result = chardet.detect(raw)
+            encoding = result['encoding']
+        infile = io.open('data-sources.csv', 'r', encoding=encoding)
+        sources = infile.readlines()
+        infile.close()
         for source in sources:
             source.strip('\n')
-            index,file,url,delimiter=source.split(",")
+            index,file,url,delimiter,header_row=source.split(",")
             filename=file.split(".")[0]
             header=""
-            with open("raw-data/" + file, 'r+') as rawData:
-                rawData = unicode(rawData, errors='replace')
-                content = rawData.readlines()
-                header = [x.strip() for x in content] 
-            
+
+            #open file to be modified
+            raw_file = open("raw-data/" + file, 'r+')
+            if raw_file.startswith(codecs.BOM_UTF8):
+                encoding = 'utf-8-sig'
+            else:
+                result = chardet.detect(raw_file)
+                encoding = result['encoding']
+            infile = io.open('data-sources.csv', 'r', encoding=encoding)
+            sources = infile.readlines()
+            infile.close()
+            content = rawData.readlines()
+            header = [x.strip() for x in content] 
             headers=header.split(delimiter)
             tableString="CREATE EXTERNAL TABLE IF NOT EXISTS " + database + "." + filename + " ( "
             types = getHiveTypes(index)
