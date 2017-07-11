@@ -54,8 +54,8 @@ def prepData(database, user):
             #print(encoding)
             #bom.close()
 
-            raw_file = open(src, mode='r+', encoding='utf-8-sig')
-            content = raw_file.readlines()
+            raw_file = open(src, mode='r+')
+            content = raw_file.readlines(encoding='utf-8-sig')
 
             #strip header
             header = content[int(header_row)].strip()
