@@ -1,5 +1,4 @@
 import encodings
-import io
 import codecs
 import chardet
 
@@ -41,7 +40,7 @@ def prepData(database, user):
             #open file to be modified
             src = "raw-data/" + file
             bom = open(src, 'rb')
-            raw_bom = file.read(32)
+            raw_bom = bom.read(32)
             encoding = chardet.detect(raw_bom)['encoding']
             bom.close()
             
