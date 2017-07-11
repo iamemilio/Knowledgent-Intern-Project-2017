@@ -7,21 +7,24 @@ if [ -z "$1" ]; then
     exit 1
 fi
 user="$1"
-mv remote-packet "$3"-data
+mv remote-packet "$3"-data #remove -data in future
 workspace="$3"-data
-if [[ -z "$6" || "$6" -eq "n" ]]; then
-    mkdir "$workspace"
-    mkdir "$workspace"/raw-data
-    IFS=$'\n' read -r -a dataSource <<< "$(cat $workspace/data-sources.csv)"
-    for source in "${dataSource[@]}"
-    do
-        name="$(echo $source | cut -d$',' -f 2 )"
-        addr="$(echo $source | cut -d$',' -f 3 )"
-        wget -O "$3"-data/raw-data/"$name" "$addr"
-    done
-    else
+case $5 in
+    n|N|no)
+#       mkdir "$workspace"
+        mkdir "$workspace"/raw-data
         IFS=$'\n' read -r -a dataSource <<< "$(cat $workspace/data-sources.csv)"
-fi
+        for source in "${dataSource[@]}"
+            do
+            name="$(echo $source | cut -d$',' -f 2 )"
+            addr="$(echo $source | cut -d$',' -f 3 )"
+            wget -O "$3"-data/raw-data/"$name" "$addr"
+        done
+        ;;
+    y|Y|yes)
+        IFS=$'\n' read -r -a dataSource <<< "$(cat $workspace/data-sources.csv)" 
+        ;;
+esac
 
 mkdir "$workspace"/hive-ready-raw-data
 touch "$workspace"/load-data.hql
@@ -47,7 +50,7 @@ esac
 
 for file in $(ls "$workspace"/raw-data)
 do
-    filename=$(echo "$file" | cut -d$'.' -f 1)
+    filename=$(echo "$file" | cut -d$'.' -f 1) #future --> make part of python
     tail -n +2 "$workspace"/raw-data/$file > "$workspace"/hive-ready-raw-data/$filename-stripped.csv
 done
 cd $workspace
