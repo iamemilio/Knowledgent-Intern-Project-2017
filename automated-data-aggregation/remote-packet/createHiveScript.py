@@ -53,7 +53,7 @@ def prepData(database, user):
 
             #strip header
             header = content[int(header_row)].strip()
-            header = str(object=header'', encoding='utf-8-sig')
+            header = str(object=header, encoding='utf-8-sig')
             if delimiter == 'c' or delimiter == 'comma':
                 delimiter = ','
             headers = header.split(delimiter)
