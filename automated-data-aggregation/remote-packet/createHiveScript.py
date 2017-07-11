@@ -55,8 +55,9 @@ def prepData(database, user):
             #bom.close()
 
             raw_file = open(src, mode='r+')
-            content = raw_file.read()
-            content = decode(content)
+            #content = raw_file.read()
+            #content = decode(content)
+            content = decode(raw_file)
             content = content.split("\n")
 
             #strip header
