@@ -28,7 +28,7 @@ touch "$workspace"/load-data.hql
 
 #if make new database --> use $3 as name or use default if $3 is blank otherwise use $3 database
 case $2 in
-    "y")
+    y)
         if [ -z "$3" ]; then
             echo "CREATE DATABASE IF NOT EXISTS boston_data;" >> "$workspace"/load-data.hql
             database=boston_data;
@@ -36,7 +36,7 @@ case $2 in
             database=$3
             echo "CREATE DATABASE IF NOT EXISTS $3;" >> "$workspace"/load-data.hql
         fi ;;
-    "n")
+    n)
         if [ -z "$3" ]; then
             database=boston_data
         else

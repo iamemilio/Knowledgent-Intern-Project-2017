@@ -1,6 +1,6 @@
 #!/bin/bash
 
-read -p "Do you have a database that you want to use? [y|n]: " mkdb
+read -p "Are you using an existing database? [y|n]: " mkdb
 case $mkdb in
     y|Y) 
         read -p "Enter the name of the database you want to use: " database
@@ -35,7 +35,7 @@ read -p "IP and Port: " IP
 path="$user@$IP"
 scp -r remote-packet "$path":~/
 case $offlineData in
-    "y|Y")
+    y|Y)
         scp -r raw-data "$path":~/remote-packet/ ;;
 esac
-ssh "$path" bash remote-packet/load-hive-tables.sh $user $newDB $database $hive $beelineJDBC $offlineData
+ssh "$path" bash remote-packet/load-hive-tables.sh $user $newDB $database $hive $offlineData $beelineJDBC
