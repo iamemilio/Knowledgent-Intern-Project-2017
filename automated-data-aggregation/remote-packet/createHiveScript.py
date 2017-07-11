@@ -48,7 +48,7 @@ def prepData(database, user):
 
             #open file to be modified
             src = "raw-data/" + file
-            f = open(src)
+            f = open(src, encoding="latin-1")
             content = f.readlines()
 
             #strip header
