@@ -42,7 +42,7 @@ def prepData(database, user):
             bom = open(src, 'rb')
             raw_bom = bom.read(32)
             encoding = chardet.detect(raw_bom)['encoding']
-            print encoding
+            print(encoding)
             bom.close()
             
             raw_file = open(src, mode='r+', encoding=encoding)
