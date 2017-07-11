@@ -56,7 +56,7 @@ def prepData(database, user):
             if delimiter == 'c' or delimiter == 'comma':
                 delimiter = ','
             headers = header.split(delimiter)
-            raw_file.close()
+            f.close()
 
             #write HQL Script
             tableString = "CREATE EXTERNAL TABLE IF NOT EXISTS " + database + "." + filename + " ( "
