@@ -1,5 +1,6 @@
 import encodings
 import codecs
+import chardet
 
 remove=[\
 ('-', ['']), \
@@ -47,14 +48,13 @@ def prepData(database, user):
 
             #open file to be modified
             src = "raw-data/" + file
+            raw = open(src, 'rb')
+            result = chardet.detect(raw.readline())
+            raw.close()
 
-            #bom = open(src, 'rb')
-            #raw_bom = bom.read(32)
-            #encoding = chardet.detect(raw_bom)['encoding']
-            #print(encoding)
-            #bom.close()
+            print(result)
+            f = open(src, encoding=result['encoding'])
 
-            raw_file = open(src).read().decode('utf-8-sig')
             content = raw_file
             content = content.split("\n")
 
