@@ -51,8 +51,8 @@ esac
 for file in $(ls "$workspace"/raw-data)
 do
     filename=$(echo "$file" | cut -d$'.' -f 1) #future --> make part of python
-  #  sed -i 's/[\d128-\d255]//g' $workspace/raw-data/$file
-    #sed -i '1 s/\xEF\xBB\xBF//' $workspace/raw-data/$file
+    sed -i 's/[\d128-\d255]//g' $workspace/raw-data/$file
+    sed -i '1 s/\xEF\xBB\xBF//' $workspace/raw-data/$file
     tail -n +2 "$workspace"/raw-data/$file > "$workspace"/hive-ready-raw-data/$filename-stripped.csv
 done
 cd $workspace
