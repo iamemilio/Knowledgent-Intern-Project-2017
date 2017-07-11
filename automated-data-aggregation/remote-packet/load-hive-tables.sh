@@ -57,3 +57,17 @@ do
 done
 cd $workspace
 python3 -c "import createHiveScript; createHiveScript.prepData('$database', '$1')"
+
+#move files into hdfs
+hadoop fs -mkdir $database
+hadoop fs -mkdir $database/data
+hadoop fs -mkdir $database/data/raw-zone
+hadoop fs -put boston-school-data/hive-raw-zone/ $database/data/raw-zone
+hadoop fs -mkdir $database/hive
+hadoop fs -mkdir $database/hive/raw-zone
+case $4 in
+    "-h")
+        hive -f boston-school-data/load-data.hql;;
+    "-b")
+        beeline -u "$5" -f boston-school-data/load-data.hql;;
+esac
