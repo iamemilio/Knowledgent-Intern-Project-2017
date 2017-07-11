@@ -48,18 +48,11 @@ def prepData(database, user):
 
             #open file to be modified
             src = "raw-data/" + file
-            raw = open(src, 'rb')
-            result = chardet.detect(raw.readline())
-            raw.close()
-
-            print(result)
-            f = open(src, encoding=result['encoding'])
-
-            content = raw_file
-            content = content.split("\n")
+            f = open(src)
+            content = f.readlines()
 
             #strip header
-            header = content[int(header_row)].strip()
+            header = str(content[int(header_row)].strip(), encoding="utf-8-sig")
             if delimiter == 'c' or delimiter == 'comma':
                 delimiter = ','
             headers = header.split(delimiter)
