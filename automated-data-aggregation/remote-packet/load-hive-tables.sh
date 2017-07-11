@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-#hadoop user ; create new db flag; databe name; hive or beeline; jdbc string for beeline or hive2; use offline data flag;
+#hadoop user ; create new db flag; database name; hive or beeline; jdbc string for beeline or hive2; use offline data flag;
 if [ -z "$1" ]; then
     echo "No user provided! Exiting!"
     exit 1
@@ -62,12 +62,12 @@ python3 -c "import createHiveScript; createHiveScript.prepData('$database', '$1'
 hadoop fs -mkdir $database
 hadoop fs -mkdir $database/data
 hadoop fs -mkdir $database/data/raw-zone
-hadoop fs -put boston-school-data/hive-raw-zone/ $database/data/raw-zone
+hadoop fs -put hive-ready-raw-data/ $database/data/raw-zone
 hadoop fs -mkdir $database/hive
 hadoop fs -mkdir $database/hive/raw-zone
 case $4 in
     "-h")
-        hive -f boston-school-data/load-data.hql;;
+        hive -f load-data.hql;;
     "-b")
-        beeline -u "$5" -f boston-school-data/load-data.hql;;
+        beeline -u "$5" -f load-data.hql;;
 esac
