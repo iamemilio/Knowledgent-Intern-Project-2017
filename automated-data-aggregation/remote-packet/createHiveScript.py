@@ -70,6 +70,7 @@ def prepData(database, user):
             #prep headers and write to HQL script
             for i in range(len(headers)):
                 headers[i] = headers[i].strip('\n')
+                headers[i] = headers[i].strip()
                 for (char,replacement) in remove:
                     headers[i] = headers[i].replace(char, replacement[0])
                 if i == len(headers) - 1:
