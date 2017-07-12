@@ -5,8 +5,6 @@ if [ ! -d "~/prep-raw-zone" ]; then
 fi
 
 cd ~/prep-raw-zone
-pwd
-
 read -p "Are you using an existing database? [y|n]: " mkdb
 case $mkdb in
     y|Y) 
