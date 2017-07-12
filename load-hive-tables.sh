@@ -17,7 +17,7 @@ case $mkdb in
         ;;
 esac
 
-read -p "Do you want to use hive, beeline, or hiveServer2: " q2
+read -p "Do you want to use hive, beeline: " q2
 case $q2 in
     hive|Hive|HIVE) 
         hive="-h" 
