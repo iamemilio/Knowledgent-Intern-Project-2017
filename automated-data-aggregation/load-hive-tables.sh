@@ -1,6 +1,6 @@
 #!/bin/bash
 
-read -p "Are you using an existing database? [y|n]: " -n1 mkdb
+read -p "Are you using an existing database? [y|n]: " mkdb
 case $mkdb in
     y|Y) 
         read -p "Enter the name of the database you want to use: " database
