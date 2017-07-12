@@ -70,7 +70,7 @@ def prepData(database, user):
                     tableString = tableString + headers[i] + " " + types[i] + ","
             tableString = tableString + "ROW FORMAT DELIMITED FIELDS TERMINATED BY \'" + delimiter + "\' LINES TERMINATED BY \'\\n\' STORED AS TEXTFILE LOCATION '/user/" + user + "/" + database + \
             "/data/raw-zone/prepped-raw-data/" + filename + "\';"
-            loadString = "LOAD DATA INPATH \'hdfs:/user/" + user + "/" + database + "/data/raw-zone/prep-raw-data/" + filename + "-stripped.csv\' INTO TABLE " + database + "." + filename + ";"
+            loadString = "LOAD DATA INPATH \'hdfs:/user/" + user + "/" + database + "/data/raw-zone/prepped-raw-data/" + filename + "-stripped.csv\' INTO TABLE " + database + "." + filename + ";"
             print(file + " succesfully prepared! \n")
             hiveScript.write(tableString)
             hiveScript.write(loadString)
