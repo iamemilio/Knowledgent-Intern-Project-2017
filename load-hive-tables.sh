@@ -32,7 +32,7 @@ case $q2 in
         ;;
 esac
 
-read -p "Which HDFS user do you want to use?: " user
+read -p "Which HDFS user do you want to store the tables in?: " user
 
 #hadoop user ; create new db flag; database name; hive or beeline; jdbc string for beeline or hive2; use offline data flag;
 
