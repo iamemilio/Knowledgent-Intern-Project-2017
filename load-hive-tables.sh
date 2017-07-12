@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ ! -d "~/prep-raw-zone" ]; then
+    cp -r automated-data-aggregation/ ~/prep-raw-zone
+fi
+
+cd ~/prep-raw-zone
 read -p "Are you using an existing database? [y|n]: " mkdb
 case $mkdb in
     y|Y) 
