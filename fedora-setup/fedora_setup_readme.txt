@@ -7,3 +7,6 @@ Emilio
         bash fedora_setup.sh
     with sudo:
         sudo bash fedora_setup.sh
+
+
+        DEPRICATED
