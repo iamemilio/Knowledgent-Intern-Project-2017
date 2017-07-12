@@ -5,6 +5,8 @@ if [ ! -d "~/prep-raw-zone" ]; then
 fi
 
 cd ~/prep-raw-zone
+pwd
+
 read -p "Are you using an existing database? [y|n]: " mkdb
 case $mkdb in
     y|Y) 
@@ -46,7 +48,7 @@ do
     fi
 done
 
-mkdir /hive-ready-raw-data
+mkdir prepped-raw-data
 touch load-data.hql
 
 #if make new database --> use $3 as name or use default if $3 is blank otherwise use $3 database
@@ -71,7 +73,7 @@ for file in $(ls raw-data)
 do
     filename=$(echo "$file" | cut -d$'.' -f 1) #future --> make part of python
     sed -i '1 s/\xEF\xBB\xBF//' raw-data/$file
-    tail -n +2 raw-data/$file > hive-ready-raw-data/$filename-stripped.csv
+    tail -n +2 raw-data/$file > prepped-raw-data/$filename-stripped.csv
 done
 
 python3 -c "import createHiveScript; createHiveScript.prepData('$database', '$1')"
@@ -80,7 +82,7 @@ python3 -c "import createHiveScript; createHiveScript.prepData('$database', '$1'
 hadoop fs -mkdir $database
 hadoop fs -mkdir $database/data
 hadoop fs -mkdir $database/data/raw-zone
-hadoop fs -put hive-ready-raw-data/ $database/data/raw-zone
+hadoop fs -put prepped-raw-data/ $database/data/raw-zone
 hadoop fs -mkdir $database/hive
 hadoop fs -mkdir $database/hive/raw-zone
 case $hive in
