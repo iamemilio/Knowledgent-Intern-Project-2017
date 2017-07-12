@@ -32,6 +32,8 @@ case $q2 in
         ;;
 esac
 
+read -p "Which HDFS user do you want to use?: " user
+
 #hadoop user ; create new db flag; database name; hive or beeline; jdbc string for beeline or hive2; use offline data flag;
 
 IFS=$'\n' read -r -a dataSource <<< "$(cat $workspace/data-sources.csv)"
@@ -74,7 +76,7 @@ do
     tail -n +2 raw-data/$file > prepped-raw-data/$filename-stripped.csv
 done
 
-python3 -c "import createHiveScript; createHiveScript.prepData('$database', '$1')"
+python3 -c "import createHiveScript; createHiveScript.prepData('$database', '$user')"
 
 #move files into hdfs
 hadoop fs -mkdir $database
