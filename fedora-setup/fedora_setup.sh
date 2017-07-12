@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#depricated!
+
 echo "Installing Docker..."
 dnf -y install dnf-plugins-core
 dnf config-manager \

@@ -1,6 +1,5 @@
 import encodings
 import codecs
-import chardet
 
 remove=[\
 ('-', ['']), \
@@ -19,15 +18,6 @@ remove=[\
 ('\s\s\s', ['_']), \
 ('\s\s', ['_']), \
 ('\s', ['_'])]
-
-#https://stackoverflow.com/questions/8898294/convert-utf-8-with-bom-to-utf-8-with-no-bom-in-python
-def decode(s):
-    for encoding in "utf-8-sig", "utf-16":
-        try:
-            return s.decode(encoding)
-        except UnicodeDecodeError:
-            continue
-    return s.decode("latin-1") # will always work
 
 def getHiveTypes(num):
     with open('types.csv', 'rt+') as f:
