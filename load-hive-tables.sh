@@ -81,6 +81,7 @@ python3 -c "import createHiveScript; createHiveScript.prepData('$database', '$us
 #move files into hdfs
 hadoop fs -mkdir $database
 hadoop fs -mkdir $database/data
+hadoop fs -mkdir $database/refined-zone
 hadoop fs -mkdir $database/data/raw-zone
 hadoop fs -put prepped-raw-data/ $database/data/raw-zone
 hadoop fs -mkdir $database/hive
