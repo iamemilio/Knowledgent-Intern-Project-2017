@@ -18,4 +18,6 @@ grads_prep = FOREACH classSize GENERATE (Org_Name,OrgCode,Num_in_Cohort,Percent_
 a = JOIN ind_prep BY School_Code LEFT, col_prep BY School_Code USING 'replicated';
 b = JOIN a BY ind_prep.School_Code LEFT, grads_prep BY School_Code USING 'replicated';
 c = JOIN b BY ind_prep.School_Code LEFT, eval_prep BY Org_Code USING 'replicated';
-d = JOIN 
+d = JOIN c BY ind_prep.School_Name LEFT, cs_prep BY SCHOOLUSING 'replicated';
+e = JOIN d BY ind_prep.School_Code LEFT, enrollment BY ORG_CODE USING 'replicated';
+
