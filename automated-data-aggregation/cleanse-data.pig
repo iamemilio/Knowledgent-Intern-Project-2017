@@ -15,4 +15,4 @@ cleansed = FOREACH joined GENERATE (
     Total_Num_Classes,Average_Class_Size,Num_Students,Female_Percent,Male_Percent,Limited_English_Proficient_Percent,Special_Education_Percent,Economically_Disadvantaged_Percent), 
     REPLACE(Total_Num_Classes, '"', ''), REPLACE(Retention_Num,'"',''), REPLACE(Num_Evaluated,'NA|-|NI',''),REPLACE(Num_Educators_to_be_Evaluated,'NA',''),REPLACE(Percent_Evaluated,'NA',''),REPLACE(Percent_Exemplary,'NA|-|NI',''),REPLACE(Percent_Proficient,'NA|-|NI',''),REPLACE(Percent_Needs_Improvement,'NA|-|NI',''),REPLACE(Percent_Unsatisfactory,'NA|-|NI',''),REPLACE(Private_TwoYear_Percent,'0','0.0'), REPLACE(Percent_Permanently_Excluded,'0','0.0'), REPLACE(School_Name, '"', '');
 
-STORE cleansed INTO ' /user/cloudera/testing1/hive/refined' USING PigStorage(',');
+STORE cleansed INTO ' /user/cloudera/testing1/hive/refined/joined_data' USING PigStorage(',');
