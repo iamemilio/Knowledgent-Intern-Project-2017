@@ -7,7 +7,7 @@ enrollmentbyracegender.African_American ,enrollmentbyracegender.Asian ,enrollmen
 gradsattendingcollege.School_Code ,gradsattendingcollege.High_School_Graduates_Num ,gradsattendingcollege.Attending_College_Num ,gradsattendingcollege.Attending_College_Percent ,gradsattendingcollege.Private_TwoYear_Percent ,gradsattendingcollege.Private_FourYear_Percent ,gradsattendingcollege.Public_TwoYear_Percent ,gradsattendingcollege.Public_FourYear_Percent ,gradsattendingcollege.MA_Community_College_Percent ,gradsattendingcollege.MA_State_University_Percent ,gradsattendingcollege.Univof_Mass_Percent,
 graduates.Num_in_Cohort ,graduates.Percent_Graduated ,graduates.Percent_Still_in_School ,graduates.Percent_NonGrad_Completers ,graduates.Percent_GED ,graduates.Percent_Dropped_Out ,graduates.Percent_Permanently_Excluded,
 indicators.Retention_Num ,indicators.Retention_Rate ,indicators.Attendance_Rate ,indicators.Average_Num_Absences ,indicators.Absent_10_or_more_days ,indicators.Chronically_Absent_10_percent_or_more ,indicators.Unexcused_9_days
-FROM educatorevalperf 
+FROM educatorevalperf
 JOIN enrollmentbyracegender ON (educatorevalperf.org_code = enrollmentbyracegender.org_code)
 JOIN gradsattendingcollege ON (gradsattendingcollege.school_code = enrollmentbyracegender.org_code)
 JOIN graduates ON (graduates.orgcode = gradsattendingcollege.school_code)
