@@ -12,8 +12,7 @@ cleansed = FOREACH joined GENERATE (
     Num_in_Cohort,Percent_Graduated,Percent_Still_in_School,Percent_NonGrad_Completers,Percent_GED,Percent_Dropped_Out,Percent_Permanently_Excluded,
     Retention_Num,Retention_Rate,Attendance_Rate, Average_Num_Absences,Absent_10_or_more_days,Chronically_Absent_10_percent_or_more,Unexcused_9_days), REPLACE(Total_Num_Classes, '"', ''), REPLACE(Retention_Num,'"',''), REPLACE(Num_Evaluated,'NA|-|NI',''),REPLACE(Num_Educators_to_be_Evaluated,'NA',''),REPLACE(Percent_Evaluated,'NA',''),REPLACE(Percent_Exemplary,'NA|-|NI',''),REPLACE(Percent_Proficient,'NA|-|NI',''),REPLACE(Percent_Needs_Improvement,'NA|-|NI',''),REPLACE(Percent_Unsatisfactory,'NA|-|NI',''),REPLACE(Private_TwoYear_Percent,'0','0.0'), REPLACE(Percent_Permanently_Excluded,'0','0.0'), REPLACE(School_Name, '"', '');
 
-
-
+DUMP cleansed; 
 
 
 /*
