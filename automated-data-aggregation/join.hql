@@ -12,17 +12,19 @@ FROM educatorevalperf
 JOIN enrollmentbyracegender ON (educatorevalperf.org_code = enrollmentbyracegender.org_code)
 JOIN gradsattendingcollege ON (gradsattendingcollege.school_code = enrollmentbyracegender.org_code)
 JOIN graduates ON (graduates.orgcode = gradsattendingcollege.school_code)
-JOIN indicators ON (indicators.school_code = graduates.orgcode);
+JOIN indicators ON (indicators.school_code = graduates.orgcode)
+JOIN classsizebygenderpopulation ON (classsizebygenderpopulation.school = indicators.school_name);
 
 CREATE TABLE joined_data_cleansed STORED AS TEXTFILE AS 
 SELECT 
-regexp_replace(School_Name, '"', ''),
-substr(trim(regexp_replace(School_Name, '"', '')), 1, instr(code,'-')-1) as District, 
-substr(trim(regexp_replace(School_Name, '"', '')), instr(code,'-')+1) as Name,
-regexp_replace(Num_Educators_to_be_Evaluated,'NA',''),regexp_replace(Num_Evaluated,'NA|-|NI',''),regexp_replace(Percent_Evaluated,'NA',''),regexp_replace(Percent_Exemplary,'NA|-|NI',''),regexp_replace(Percent_Proficient,'NA|-|NI',''),regexp_replace(Percent_Needs_Improvement,'NA|-|NI',''),regexp_replace(Percent_Unsatisfactory,'NA|-|NI',''),
+regexp_replace(School_Name, '"', '') as school_name,
+trim(regexp_replace(substr(School_Name, 1, instr(School_Name,'-')-1), '"', '')) as District, 
+trim(regexp_replace(substr(School_Name, instr(School_Name,'-')+1), '"', '')) as Name,
+regexp_replace(Num_Educators_to_be_Evaluated,'NA','') as num_educators_to_be_evaluated,regexp_replace(Num_Evaluated,'NA|-|NI','') as num_evaluated,regexp_replace(Percent_Evaluated,'NA','') as percent_evaluated,regexp_replace(Percent_Exemplary,'NA|-|NI','') as percent_exemplary,regexp_replace(Percent_Proficient,'NA|-|NI','') as percent_proficient,regexp_replace(Percent_Needs_Improvement,'NA|-|NI','') as percent_needs_improvement,regexp_replace(Percent_Unsatisfactory,'NA|-|NI','') as percent_unsatisfactory,
 African_American ,Asian ,Hispanic ,White ,Native_American ,Native_Hawaiian_Pacific_Islander ,MultiRace_NonHispanic ,Males ,Females,
 School_Code ,High_School_Graduates_Num ,Attending_College_Num ,Attending_College_Percent ,Private_TwoYear_Percent ,Private_FourYear_Percent ,Public_TwoYear_Percent ,Public_FourYear_Percent ,MA_Community_College_Percent ,MA_State_University_Percent ,Univof_Mass_Percent,
 Num_in_Cohort ,Percent_Graduated ,Percent_Still_in_School ,Percent_NonGrad_Completers ,Percent_GED ,Percent_Dropped_Out ,Percent_Permanently_Excluded,
-regexp_replace(Retention_Num,'"','') ,Retention_Rate ,Attendance_Rate ,Average_Num_Absences ,Absent_10_or_more_days ,Chronically_Absent_10_percent_or_more ,Unexcused_9_days,
-regexp_replace(Total_Num_Classes, '"', ''),Average_Class_Size,Num_Students,Female_Percent,Male_Percent,Limited_English_Proficient_Percent,Special_Education_Percent,Economically_Disadvantaged_Percent
+regexp_replace(retention_num,'"','') as retention_num,Retention_Rate ,Attendance_Rate ,Average_Num_Absences ,Absent_10_or_more_days ,Chronically_Absent_10_percent_or_more ,Unexcused_9_days,
+regexp_replace(total_num_classes, '"', '') as total_num_classes,Average_Class_Size,Num_Students,Female_Percent,Male_Percent,Limited_English_Proficient_Percent,Special_Education_Percent,Economically_Disadvantaged_Percent
 FROM Joined_Data
+
