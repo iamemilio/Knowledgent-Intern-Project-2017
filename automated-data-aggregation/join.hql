@@ -25,6 +25,6 @@ African_American ,Asian ,Hispanic ,White ,Native_American ,Native_Hawaiian_Pacif
 School_Code ,High_School_Graduates_Num ,Attending_College_Num ,Attending_College_Percent ,Private_TwoYear_Percent ,Private_FourYear_Percent ,Public_TwoYear_Percent ,Public_FourYear_Percent ,MA_Community_College_Percent ,MA_State_University_Percent ,Univof_Mass_Percent,
 Num_in_Cohort ,Percent_Graduated ,Percent_Still_in_School ,Percent_NonGrad_Completers ,Percent_GED ,Percent_Dropped_Out ,Percent_Permanently_Excluded,
 regexp_replace(retention_num,'"','') as retention_num,Retention_Rate ,Attendance_Rate ,Average_Num_Absences ,Absent_10_or_more_days ,Chronically_Absent_10_percent_or_more ,Unexcused_9_days,
-regexp_replace(total_num_classes, '"', '') as total_num_classes,Average_Class_Size,Num_Students,Female_Percent,Male_Percent,Limited_English_Proficient_Percent,Special_Education_Percent,Economically_Disadvantaged_Percent
+regexp_replace(total_num_classes, '"', '') as total_num_classes,Average_Class_Size,regexp_replace(Num_Students, '"', '') as Num_Students,regexp_replace(Female_Percent, '"', '') as Female_Percent,regexp_replace(Male_Percent, '"', '') as Male_Percent,Limited_English_Proficient_Percent,Special_Education_Percent,Economically_Disadvantaged_Percent
 FROM Joined_Data
 
