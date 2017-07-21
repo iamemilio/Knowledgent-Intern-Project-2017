@@ -2,8 +2,8 @@
 
 
 ## Components
-1. Environment Setup
-2. Ingestion Tool
+1. [Environment Setup](https://github.com/iamemilio/Knowledgent-Intern-Project-2017#environment-setup)
+2. [Ingestion Tool](https://github.com/iamemilio/Knowledgent-Intern-Project-2017#ingestion-tool)
 3. Sample Data Cleansing
 
 ## Environment Setup
