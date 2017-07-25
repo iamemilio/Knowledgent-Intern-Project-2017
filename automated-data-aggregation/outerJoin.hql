@@ -9,11 +9,11 @@ graduates.Num_in_Cohort ,graduates.Percent_Graduated ,graduates.Percent_Still_in
 indicators.Retention_Num ,indicators.Retention_Rate ,indicators.Attendance_Rate ,indicators.Average_Num_Absences ,indicators.Absent_10_or_more_days ,indicators.Chronically_Absent_10_percent_or_more ,indicators.Unexcused_9_days,
 classsizebygenderpopulation.Total_Num_Classes,classsizebygenderpopulation.Average_Class_Size,classsizebygenderpopulation.Num_Students,classsizebygenderpopulation.Female_Percent,classsizebygenderpopulation.Male_Percent,classsizebygenderpopulation.Limited_English_Proficient_Percent,classsizebygenderpopulation.Special_Education_Percent,classsizebygenderpopulation.Economically_Disadvantaged_Percent
 FROM educatorevalperf
-JOIN enrollmentbyracegender ON (educatorevalperf.org_code = enrollmentbyracegender.org_code)
-JOIN gradsattendingcollege ON (gradsattendingcollege.school_code = enrollmentbyracegender.org_code)
-JOIN graduates ON (graduates.orgcode = gradsattendingcollege.school_code)
-JOIN indicators ON (indicators.school_code = graduates.orgcode)
-JOIN classsizebygenderpopulation ON (classsizebygenderpopulation.school = indicators.school_name);
+LEFT OUTER JOIN enrollmentbyracegender ON (educatorevalperf.org_code = enrollmentbyracegender.org_code)
+LEFT OUTER JOIN gradsattendingcollege ON (gradsattendingcollege.school_code = enrollmentbyracegender.org_code)
+LEFT OUTER JOIN graduates ON (graduates.orgcode = gradsattendingcollege.school_code)
+LEFT OUTER JOIN indicators ON (indicators.school_code = graduates.orgcode)
+LEFT OUTER JOIN classsizebygenderpopulation ON (classsizebygenderpopulation.school = indicators.school_name);
 
 CREATE TABLE joined_data_cleansed STORED AS TEXTFILE AS 
 SELECT 

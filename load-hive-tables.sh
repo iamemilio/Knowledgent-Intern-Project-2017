@@ -6,7 +6,7 @@ fi
 
 cd ~/prep-raw-zone
 read -p "Are you using an existing database? [y|n]: " mkdb
-case $mkdb in
+case "$mkdb" in
     y|Y) 
         read -p "Enter the name of the database you want to use: " database
         newDB="n"
@@ -18,7 +18,7 @@ case $mkdb in
 esac
 
 read -p "Do you want to use hive, beeline: " q2
-case $q2 in
+case "$q2" in
     hive|Hive|HIVE) 
         hive="-h" 
         ;;
@@ -41,7 +41,10 @@ for source in "${dataSource[@]}"
 do
     name="$(echo $source | cut -d$',' -f 2 )"
     addr="$(echo $source | cut -d$',' -f 3 )"
-    
+    headers="$(echo $source | cut -d$',' -f 5 )"
+    if [ -z "$headers" ]; then
+        headers=2
+    fi
     #download data from url address provided iff: its not already in raw data and an address is provided
     if ! [ -r "raw-data/$name" ] || [ -z "$addr" ];then
         wget -O raw-data/"$name" "$addr"
@@ -73,7 +76,8 @@ for file in $(ls raw-data)
 do
     filename=$(echo "$file" | cut -d$'.' -f 1) #future --> make part of python
     sed -i '1 s/\xEF\xBB\xBF//' raw-data/$file
-    tail -n +2 raw-data/$file > prepped-raw-data/$filename-stripped.csv
+    cutAt=$(($headers + 2))     #headers indexed by 0 --> +1 and start at row after header row --> + 1
+    tail -n +$cutAt raw-data/$file > prepped-raw-data/$filename-stripped.csv
 done
 
 python3 -c "import createHiveScript; createHiveScript.prepData('$database', '$user')"

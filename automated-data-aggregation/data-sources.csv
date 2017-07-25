@@ -9,3 +9,6 @@ index,filename,url,delimiter,header_row
 7,graduates.csv,"",c,0
 8,Public_Schools.csv,"",c,0
 9,Non_Public_Schools.csv,"",c,0
+10,PerPupilExpenditures.csv,"",c,1
+11,NetSchoolSpending.csv,"",c,1
+12,teachersalaries.csv,"",c,2
