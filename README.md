@@ -3,7 +3,16 @@
 ## Components
 1. [Environment Setup](https://github.com/iamemilio/Knowledgent-Intern-Project-2017#environment-setup)
 2. [Ingestion Tool](https://github.com/iamemilio/Knowledgent-Intern-Project-2017#ingestion-tool)
-3. Sample Data Cleansing
+3. [Sample Data Cleansing](https://github.com/iamemilio/Knowledgent-Intern-Project-2017#sample-data-cleansing)
+4. [Tableau Visualizations](https://github.com/iamemilio/Knowledgent-Intern-Project-2017#sample-tableau-visualizations)
+
+
+
+## Data Sources
+To learn more about the datat sourcese, please go to this google doc that clearly outlines what column definitions and data granularity.
+https://docs.google.com/spreadsheets/d/1h4C55lwemSvEzmXvHUZBEKVqTp9AtJdrd5tfSyV2w2g/edit#gid=0
+
+ 
  
  ## Environment Setup
    The software was designed and tested in the Cloudera Quickstart VM with a specific set of data. **It is intended to be run from a terminal in a Cloudera Hadoop Edge Node**. Running it in environments other than this could result in unexpected bugs and errors. In order to run this software, you will need python 3. A script called [centos-setup.sh](./centos-setup.sh) is included to help you install python 3.4 if you dont already have it. To run centos-setup, you must be root. The following commands will get your environment set up: 
@@ -68,3 +77,15 @@ id: *long*, name: *string*, phone: *string*, purchase: *string*, date: *date*
  
  If you choose to edit these tables in microsoft excel, make sure to check the characters before running it because it does not encode in standard Unicode formatting, and can cause errors when its read. A text editor like notepad++ is probably the best way to check for this.
  
+ 
+ 
+
+## Sample Data Cleansing
+ For the most part this data was fairly clean. Most of my cleansing was focused on coarse grained cleansing, such as removing stray quotation marks. There are a few scripts in here that an be used depending on what you want. *join.hql* is an inner join on all the school level tables in the data lake. If you want an outer join, then use *outerJoin.hql*. For tables that only have district information, they are joined and cleansed in the *district_finance_join.hql* table. These scripts both cleanse and join the tables into tableau ready formats.
+
+To run these scripts, copy and paste them into Hue, or ssh into an edge node and use the command '''hive -f join.hql'''
+
+
+
+## Sample Tableau Visualizations
+https://public.tableau.com/profile/emilio.garcia4319#!/vizhome/2014MassPublicSchoolData/Dashboard1?publish=yes
