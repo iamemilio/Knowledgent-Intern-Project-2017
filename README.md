@@ -83,9 +83,16 @@ id: *long*, name: *string*, phone: *string*, purchase: *string*, date: *date*
 ## Sample Data Cleansing
  For the most part this data was fairly clean. Most of my cleansing was focused on coarse grained cleansing, such as removing stray quotation marks. There are a few scripts in here that an be used depending on what you want. *join.hql* is an inner join on all the school level tables in the data lake. If you want an outer join, then use *outerJoin.hql*. For tables that only have district information, they are joined and cleansed in the *district_finance_join.hql* table. These scripts both cleanse and join the tables into tableau ready formats.
 
-To run these scripts, copy and paste them into Hue, or ssh into an edge node and use the command '''hive -f join.hql'''
+To run these scripts, copy and paste them into Hue, or ssh into an edge node and use the command 
+
+'''hive -f join.hql'''
 
 
 
 ## Sample Tableau Visualizations
-https://public.tableau.com/profile/emilio.garcia4319#!/vizhome/2014MassPublicSchoolData/Dashboard1?publish=yes
+In coordination with the project [timeline](Timeline_1.pdf), here are the visualizations I created. The fourth iteration is not in the timeline since it was technically just a redo of the third iteration and I consider it to be the true final 3rd iteration product.
+
+[Iteration 1](https://public.tableau.com/profile/emilio.garcia4319#!/vizhome/MassSchoolData/EffectOfEducationQualityonHigherEducationProspects)
+[Iteration 2](https://public.tableau.com/profile/emilio.garcia4319#!/vizhome/MassachusettsPublicSchoolDataRound2/GraduationandHigherEd)
+[Iteration 3](https://public.tableau.com/profile/emilio.garcia4319#!/vizhome/MassSchoolandFinancialData/FinancialTelltales)
+[Iteration 4](https://public.tableau.com/profile/emilio.garcia4319#!/vizhome/2014MassPublicSchoolData/Dashboard1?publish=yes)
