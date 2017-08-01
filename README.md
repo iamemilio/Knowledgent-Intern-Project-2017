@@ -36,21 +36,22 @@ https://docs.google.com/spreadsheets/d/1h4C55lwemSvEzmXvHUZBEKVqTp9AtJdrd5tfSyV2
      1. `y`: Data will be loaded into a database that already exists
          1. Enter the name of the database you want to use:
              - If the database exists, a raw-zone in your hdfs user directory will be created under the database name you provided, and raw tables will be added to the specified hive database
-             - If the datatabase provided does not exist the program will fail, but the raw-zone in hdfs will still be created and populated
+             - If the datatabase provided does not exist the program will exit, but the raw-zone in hdfs will still be created and populated
      2. `n`: A new database will be created for this data
          1. Enter a name for the new database: 
-             - A raw zone in your hdfs user will be created under the database name given, a hive database will be created with the entered name
+             - A raw zone in your hdfs user will be created under the database name given, and a hive database will be created as the entered name
  2. Do you want to use hive, beeline:
      1. `hive`: the script will attempt to execute code using the Hive CLI
      2. `beeline`: the script will attempt to use the beeline CLI
          - You will be prompted to enter your jdbc string. Please use the following formatting:
          
          `jdbc:hive2://<host>:<port>`
-         - Disclaimer: This has not been properly tested and will likely be buggy!
+         - Disclaimer: The beeline implementation may be buggy!
  
  ### Using Your Own Data
  
-   If your intend to use your own data with the ingestion tool, the framework was designed to be able to use either locally stored data, or to download data directly from a link. In order to do this correctly however, there are two essential files that you will have to manipulate: data-sources.csv and types.csv. These tables store essential information that the system uses to process your data, and must be filled out correctly, since they both rely on each other, and will ultimiately cause your script to fail if neglected. 
+   If your intend to use your own data with the ingestion tool, the framework was designed to be able to use locally stored data, or to download data from the web. In order to set this up, there are two essential files that you will have to edit: data-sources.csv and types.csv. These tables store the information the framework uses to process your data, and must be filled out correctly. Both tables rely on each other, so errors in one may cause errors with reading the other. 
+   
  ### [data-sources.csv](automated-data-aggregation/data-sources.csv)
    This table is where you should start. It indexes all the data sources that you are aggregating, and it keeps track of important aspects of the table, such as where the header row is, the url you intend to download it from, etc. The columns are as follows:
  
@@ -58,9 +59,15 @@ https://docs.google.com/spreadsheets/d/1h4C55lwemSvEzmXvHUZBEKVqTp9AtJdrd5tfSyV2
  | :---: | :---: | :---: | :---: | :---: |
  | 0 | sample.txt | www.sample-url.com | comma | 0 |
  
- *Index* is index of the row in the types table that the information for this data set is stored. The first index is zero. *Filename* is what you want the file to be named when it gets put into the raw-data folder. However, there is more to it than just that! The next field is *URL*, which is the address that the data can be directly downloaded from. If you intend to download a data set, this obviously has to be filled out, however, the program will check the raw-data folder to see if a data set with the given *Filename* already exists. If it does, then the data set will not be downloaded and be assumed to be the one in the raw-data folder. Lastly, if *URL* is left blank, it will also not attempt to download anything. The *delimiter* field should be used to specify the delimiter for the data file. This is read literally, so if the textfile is delimited with pipes, type `|`. Since this is a comma seperated document, if your data file is delimited by commas, then `comma` or `c` are acceptable inputs. Finally, the *header row* is just the row in the data file that the header column is on. It assumes the first row of data is after the header row specified.
+* *Index* is index of the row in the types table that the information for this data set is stored. 
+    * The first index is zero!
+* *Filename* is what you want the file to be named when it gets put into the raw-data folder, and what it will look for when it strips the headers from the file and preps them for hive.
+* *URL* is the address that the data can be directly downloaded from. If you intend to download a data set, this obviously has to be filled out, however, the program will check the raw-data folder to see if a data set with the given *Filename* already exists. If it does, then the data set will not be downloaded and be assumed to be the one in the raw-data folder. Lastly, if *URL* is left blank, it will also not attempt to download anything. 
+* *delimiter* field should be used to specify the delimiter for the data file. This is read literally, so if the textfile is delimited with pipes, type `|`. Since this is a comma seperated document, if your data file is delimited by commas, then `comma` or `c` are acceptable inputs. Finally, the *header row* is just the row in the data file that the header column is on. It assumes the first row of data is after the header row specified.
  
- The second table is *types.csv*, which is used to store the hive data types for the columns of the tables you are entering into hive. In the row indicated by the *index* field in the data-sources table, fill in the types of the columns from left to right starting in the zero row. 
+ 
+### [Types.csv](automated-data-aggregation/types.csv)
+The *Types* table is used to store the hive data types for the columns of the tables you are entering into hive. In the row indicated by the *index* field in the data-sources table, fill in the types of the columns from left to right starting in row zero. 
 
 For example, using the sources table above, assume you have a table called sample with the following schema:
 id: *long*, name: *string*, phone: *string*, purchase: *string*, date: *date*
