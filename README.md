@@ -5,7 +5,7 @@
 2. [Ingestion Tool](https://github.com/iamemilio/Knowledgent-Intern-Project-2017#ingestion-tool)
 3. [Sample Data Cleansing](https://github.com/iamemilio/Knowledgent-Intern-Project-2017#sample-data-cleansing)
 4. [Tableau Visualizations](https://github.com/iamemilio/Knowledgent-Intern-Project-2017#sample-tableau-visualizations)
-5. [Project Timeline](Knowledgent-Intern-Project-2017/Timeline_1.pdf)
+5. [Project Timeline](Timeline_1.pdf)
 
 
 ## Data Sources
