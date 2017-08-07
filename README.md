@@ -15,6 +15,11 @@ https://docs.google.com/spreadsheets/d/1h4C55lwemSvEzmXvHUZBEKVqTp9AtJdrd5tfSyV2
  
  
  ## Environment Setup
+ WARINING: I am aware that many of the bash scripts have MS DOS formatting, and could cause errors when run in linux. If you encounter unusual errors, or any errors when following the sample steps below, this is likely the culprit. Unitl I fix this, do the following to any bash script before you run it.
+```
+dos2unix script.sh
+```
+
    The software was designed and tested in the Cloudera Quickstart VM with a specific set of data. **It is intended to be run from a terminal in a Cloudera Hadoop Edge Node**. Running it in environments other than this could result in unexpected bugs and errors. In order to run this software, you will need python 3. A script called [centos-setup.sh](./centos-setup.sh) is included to help you install python 3.4 if you dont already have it. To run centos-setup, you must be root. The following commands will get your environment set up: 
    
    ```Shell
